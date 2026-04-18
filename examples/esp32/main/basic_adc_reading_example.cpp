@@ -1,15 +1,42 @@
 /**
+ * @defgroup ads7952_examples Usage Examples
+ * @ingroup ads7952_driver
+ * @brief Reference applications demonstrating practical ADS7952 driver usage.
+ */
+
+/**
+ * @defgroup ads7952_examples_esp32 ESP32 Example Applications
+ * @ingroup ads7952_examples
+ * @brief Example applications built on ESP-IDF and the ADS7952 C++ driver.
+ */
+
+/**
+ * @defgroup ads7952_examples_tests ESP32 Integration and Validation Tests
+ * @ingroup ads7952_examples
+ * @brief Hardware-backed test applications validating ADS7952 driver behavior.
+ */
+
+/**
+ * @defgroup ads7952_examples_support ESP32 Example Support Utilities
+ * @ingroup ads7952_examples
+ * @brief Shared support components used by ESP32 examples and tests.
+ */
+
+/**
  * @file basic_adc_reading_example.cpp
  * @brief Basic ADC channel reading example with voltage conversion
+ * @ingroup ads7952_examples_esp32
  *
- * This example demonstrates:
+ * @details
+ * Minimal end-to-end example that brings up SPI transport, initializes the
+ * ADS7952 driver, performs manual per-channel reads, and then performs
+ * Auto-1 batched reads with voltage conversion.
+ *
+ * @section basic_adc_reading_flow Execution Flow
  * - ADS7952 initialization (Auto-1/Auto-2 programming, mode entry)
  * - Reading individual ADC channels via Manual mode
  * - Reading all channels via Auto-1 batch mode
  * - Converting raw counts to voltage using the driver's built-in method
- *
- * @author N3b3x
- * @date 2025
  */
 
 #include "esp_log.h"

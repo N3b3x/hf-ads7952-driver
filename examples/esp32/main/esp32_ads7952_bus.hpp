@@ -2,14 +2,12 @@
  * @file esp32_ads7952_bus.hpp
  * @brief ESP32 SPI transport implementation for ADS7952 driver (header-only)
  *
- * This file provides the ESP32-specific implementation of the ads7952::SpiInterface
- * interface for communicating with ADS7952 ADC over SPI.
+ * @details
+ * Provides an ESP-IDF transport adapter implementing
+ * ads7952::SpiInterface<Esp32Ads7952SpiBus>, intended for use by all ESP32
+ * examples and tests in this directory.
  *
- * Header-only implementation — no separate .cpp file needed.
- *
- * @author N3b3x
- * @date 2025
- * @version 1.0.0
+ * @ingroup ads7952_examples_support
  */
 
 #pragma once
@@ -25,21 +23,21 @@
 #include <memory>
 
 /**
+ * @ingroup ads7952_examples_support
  * @class Esp32Ads7952SpiBus
- * @brief ESP32 SPI transport implementation for ADS7952 driver
+ * @brief ESP32 SPI transport implementation for ADS7952 driver.
  *
- * This class implements the ads7952::SpiInterface interface using ESP-IDF's SPI
- * driver with CRTP pattern. It supports configurable SPI pins, frequency, and
- * chip select.
+ * Implements the CRTP SPI contract expected by ads7952::ADS7952 using ESP-IDF's
+ * SPI master driver with configurable host, pins, and timing parameters.
  */
 class Esp32Ads7952SpiBus : public ads7952::SpiInterface<Esp32Ads7952SpiBus> {
 public:
   /**
-   * @brief SPI configuration structure
+   * @ingroup ads7952_examples_support
+   * @brief SPI configuration structure.
    *
-   * @note For standard usage, use CreateEsp32Ads7952SpiBus() factory function
-   *       which pulls configuration from esp32_ads7952_test_config.hpp.
-   *       Only create SPIConfig manually if you need custom pin assignments.
+   * @note For standard usage, prefer CreateEsp32Ads7952SpiBus(), which pulls
+   *       values from esp32_ads7952_test_config.hpp.
    */
   struct SPIConfig {
     spi_host_device_t host;      ///< SPI host (e.g., SPI2_HOST)
@@ -179,12 +177,13 @@ private:
 };
 
 /**
- * @brief Factory function to create an Esp32Ads7952SpiBus with test config
+ * @ingroup ads7952_examples_support
+ * @brief Factory function creating an Esp32Ads7952SpiBus from example config.
  *
- * Uses configuration from esp32_ads7952_test_config.hpp to create a bus
- * instance with consistent settings across all examples.
+ * Uses values from esp32_ads7952_test_config.hpp so all examples/tests share
+ * one hardware configuration source.
  *
- * @return std::unique_ptr<Esp32Ads7952SpiBus> Configured SPI bus instance
+ * @return Configured SPI bus instance.
  */
 inline std::unique_ptr<Esp32Ads7952SpiBus> CreateEsp32Ads7952SpiBus() {
   Esp32Ads7952SpiBus::SPIConfig config;

@@ -1,7 +1,9 @@
 /**
  * @file multi_mode_example.cpp
  * @brief Demonstrates Manual, Auto-1, and Auto-2 operating modes
+ * @ingroup ads7952_examples_esp32
  *
+ * @details
  * This example shows:
  * - Manual mode: read specific channels one at a time
  * - Auto-1 mode: batch read a configurable channel subset
@@ -9,8 +11,8 @@
  * - Mode switching between all three modes
  * - Reprogramming Auto-1 channel mask and Auto-2 last channel
  *
- * @author N3b3x
- * @date 2025
+ * @example multi_mode_example.cpp
+ * Example that cycles through all ADS7952 operating modes.
  */
 
 #include "esp_log.h"

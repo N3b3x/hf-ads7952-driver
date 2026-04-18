@@ -9,6 +9,7 @@
  * @author N3b3x
  * @date 2025
  * @copyright HardFOC
+ * @ingroup ads7952_examples_support
  */
 
 #pragma once

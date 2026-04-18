@@ -1,13 +1,11 @@
 /**
  * @file esp32_ads7952_test_config.hpp
  * @brief Hardware configuration for ADS7952 driver on ESP32
+ * @ingroup ads7952_examples_support
  *
- * This file contains the actual hardware configuration that is used by the HAL
- * and example applications. Modify these values to match your hardware setup.
- *
- * @author N3b3x
- * @date 2025
- * @version 1.0.0
+ * @details
+ * This file contains the hardware and runtime configuration used by the ESP32
+ * transport and example applications. Modify these values to match your board.
  */
 
 #pragma once
@@ -19,13 +17,10 @@
 //==============================================================================
 
 /**
- * @brief Enable detailed SPI transaction logging
+ * @brief Enable detailed SPI transaction logging.
  *
- * @details
- * When enabled (set to 1), the Esp32Ads7952SpiBus will log detailed
- * information about each SPI transaction including TX/RX frame bytes.
- *
- * Default: 1 (enabled) for integration test - Set to 0 to reduce log noise
+ * When enabled (set to 1), Esp32Ads7952SpiBus logs per-transfer TX/RX bytes.
+ * Set to 0 to reduce runtime log volume.
  */
 #ifndef ESP32_ADS7952_ENABLE_DETAILED_SPI_LOGGING
 #define ESP32_ADS7952_ENABLE_DETAILED_SPI_LOGGING 1

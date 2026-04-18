@@ -1,7 +1,9 @@
 /**
  * @file driver_integration_test.cpp
  * @brief Comprehensive ADS7952 driver integration test suite
+ * @ingroup ads7952_examples_tests
  *
+ * @details
  * Validates the complete ADS7952 driver API on real hardware:
  * - Initialization and SPI communication
  * - Manual single-channel reading
@@ -16,7 +18,8 @@
  * - Voltage conversion accuracy
  * - Repeated-read stability
  *
- * Hardware required: ADS7952 connected via SPI to ESP32-S3
+ * @section driver_integration_test_hardware Hardware
+ * ADS7952 connected via SPI to ESP32-S3.
  *
  * @author N3b3x
  * @date 2025
