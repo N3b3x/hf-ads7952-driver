@@ -12,14 +12,14 @@ This branch contains the versioned documentation for this repository.
 
 ## Access
 
-- **Latest**: [https://N3b3x.github.io/hf-ads7952/](https://N3b3x.github.io/hf-ads7952/)
-- **All Versions**: [https://N3b3x.github.io/hf-ads7952/version_selector.html](https://N3b3x.github.io/hf-ads7952/version_selector.html)
+- **Latest**: [https://N3b3x.github.io/hf-ads7952-driver/](https://N3b3x.github.io/hf-ads7952-driver/)
+- **All Versions**: [https://N3b3x.github.io/hf-ads7952-driver/version_selector.html](https://N3b3x.github.io/hf-ads7952-driver/version_selector.html)
 
 ## Current Version
 
 - **Version**: development
 - **Type**: development
-- **Deployed**: 2026-04-18T06:32:41Z
+- **Deployed**: 2026-04-18T06:59:19Z
 - **Commit**: 3e33896472cfb4545b9b12378e563103078095d8
 
 ---
