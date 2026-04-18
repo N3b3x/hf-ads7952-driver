@@ -28,6 +28,7 @@ namespace ads7952 {
 // =============================================================================
 
 template <typename SpiType>
+/** @copydoc ADS7952::ADS7952(SpiType&,float,float) */
 ADS7952<SpiType>::ADS7952(SpiType &spi, float vref, float va) noexcept
     : spi_(spi),
       vref_(vref),
@@ -40,6 +41,7 @@ ADS7952<SpiType>::ADS7952(SpiType &spi, float vref, float va) noexcept
 // =============================================================================
 
 template <typename SpiType>
+/** @copydoc ADS7952::EnsureInitialized(bool) */
 bool ADS7952<SpiType>::EnsureInitialized(bool force) noexcept {
   if (initialized_ && !force) {
     return true;
@@ -77,6 +79,7 @@ bool ADS7952<SpiType>::Initialize() noexcept {
 // =============================================================================
 
 template <typename SpiType>
+/** @copydoc ADS7952::ReadChannel(uint8_t) */
 ReadResult ADS7952<SpiType>::ReadChannel(uint8_t channel) noexcept {
   ReadResult result{};
 
@@ -110,6 +113,7 @@ ReadResult ADS7952<SpiType>::ReadChannel(uint8_t channel) noexcept {
 }
 
 template <typename SpiType>
+/** @copydoc ADS7952::ReadAllChannels() */
 ChannelReadings ADS7952<SpiType>::ReadAllChannels() noexcept {
   ChannelReadings result{};
 
@@ -166,12 +170,14 @@ ChannelReadings ADS7952<SpiType>::ReadAllChannels() noexcept {
 // =============================================================================
 
 template <typename SpiType>
+/** @copydoc ADS7952::CountToVoltage(uint16_t) const */
 float ADS7952<SpiType>::CountToVoltage(uint16_t count) const noexcept {
   return (static_cast<float>(count) * active_vref_)
        / static_cast<float>(reg::MAX_COUNT);
 }
 
 template <typename SpiType>
+/** @copydoc ADS7952::VoltageToCount(float) const */
 uint16_t ADS7952<SpiType>::VoltageToCount(float voltage) const noexcept {
   if (voltage <= 0.0f) return 0;
   float raw = (voltage / active_vref_) * static_cast<float>(reg::MAX_COUNT);
@@ -184,6 +190,7 @@ uint16_t ADS7952<SpiType>::VoltageToCount(float voltage) const noexcept {
 // =============================================================================
 
 template <typename SpiType>
+/** @copydoc ADS7952::EnterManualMode(uint8_t) */
 bool ADS7952<SpiType>::EnterManualMode(uint8_t channel) noexcept {
   if (channel >= reg::NUM_CHANNELS) return false;
 
@@ -195,6 +202,7 @@ bool ADS7952<SpiType>::EnterManualMode(uint8_t channel) noexcept {
 }
 
 template <typename SpiType>
+/** @copydoc ADS7952::EnterAuto1Mode(bool) */
 bool ADS7952<SpiType>::EnterAuto1Mode(bool reset_counter) noexcept {
   uint16_t cmd = reg::Mode::AUTO_1 | reg::PROGRAM_ENABLE
                | (reset_counter ? reg::RESET_COUNTER : reg::NO_RESET_COUNTER)
@@ -205,6 +213,7 @@ bool ADS7952<SpiType>::EnterAuto1Mode(bool reset_counter) noexcept {
 }
 
 template <typename SpiType>
+/** @copydoc ADS7952::EnterAuto2Mode(bool) */
 bool ADS7952<SpiType>::EnterAuto2Mode(bool reset_counter) noexcept {
   uint16_t cmd = reg::Mode::AUTO_2 | reg::PROGRAM_ENABLE
                | (reset_counter ? reg::RESET_COUNTER : reg::NO_RESET_COUNTER)
@@ -219,6 +228,7 @@ bool ADS7952<SpiType>::EnterAuto2Mode(bool reset_counter) noexcept {
 // =============================================================================
 
 template <typename SpiType>
+/** @copydoc ADS7952::ProgramAuto1Channels(uint16_t) */
 bool ADS7952<SpiType>::ProgramAuto1Channels(uint16_t channel_mask) noexcept {
   // Frame 1: Enter Auto-1 programming mode
   spiTransfer16(reg::Mode::AUTO_1_PROG);
@@ -236,6 +246,7 @@ bool ADS7952<SpiType>::ProgramAuto1Channels(uint16_t channel_mask) noexcept {
 // =============================================================================
 
 template <typename SpiType>
+/** @copydoc ADS7952::ProgramAuto2LastChannel(uint8_t) */
 bool ADS7952<SpiType>::ProgramAuto2LastChannel(uint8_t last_channel) noexcept {
   if (last_channel >= reg::NUM_CHANNELS) return false;
 
@@ -251,6 +262,7 @@ bool ADS7952<SpiType>::ProgramAuto2LastChannel(uint8_t last_channel) noexcept {
 // =============================================================================
 
 template <typename SpiType>
+/** @copydoc ADS7952::ProgramGPIO(const GPIOConfig&) */
 bool ADS7952<SpiType>::ProgramGPIO(const GPIOConfig &config) noexcept {
   uint16_t frame = reg::Mode::GPIO_PROG;
 
@@ -299,6 +311,7 @@ bool ADS7952<SpiType>::ProgramGPIO(const GPIOConfig &config) noexcept {
 // =============================================================================
 
 template <typename SpiType>
+/** @copydoc ADS7952::ProgramAlarm(uint8_t,AlarmBound,uint16_t) */
 bool ADS7952<SpiType>::ProgramAlarm(uint8_t channel, AlarmBound bound,
                                     uint16_t threshold_12bit) noexcept {
   if (channel >= reg::NUM_CHANNELS) return false;
@@ -339,6 +352,7 @@ bool ADS7952<SpiType>::ProgramAlarm(uint8_t channel, AlarmBound bound,
 }
 
 template <typename SpiType>
+/** @copydoc ADS7952::ProgramAlarmVoltage(uint8_t,AlarmBound,float) */
 bool ADS7952<SpiType>::ProgramAlarmVoltage(uint8_t channel, AlarmBound bound,
                                            float voltage) noexcept {
   return ProgramAlarm(channel, bound, VoltageToCount(voltage));
@@ -349,6 +363,7 @@ bool ADS7952<SpiType>::ProgramAlarmVoltage(uint8_t channel, AlarmBound bound,
 // =============================================================================
 
 template <typename SpiType>
+/** @copydoc ADS7952::SetRange(Range) */
 bool ADS7952<SpiType>::SetRange(Range range) noexcept {
   range_ = range;
 
@@ -362,6 +377,7 @@ bool ADS7952<SpiType>::SetRange(Range range) noexcept {
 }
 
 template <typename SpiType>
+/** @copydoc ADS7952::SetPowerDown(PowerDown) */
 bool ADS7952<SpiType>::SetPowerDown(PowerDown pd) noexcept {
   power_down_ = pd;
 
@@ -376,6 +392,7 @@ bool ADS7952<SpiType>::SetPowerDown(PowerDown pd) noexcept {
 // =============================================================================
 
 template <typename SpiType>
+/** @copydoc ADS7952::SetGPIOOutputs(uint8_t) */
 void ADS7952<SpiType>::SetGPIOOutputs(uint8_t gpio_state) noexcept {
   gpio_output_state_ = gpio_state & 0x0F;
 
@@ -389,6 +406,7 @@ void ADS7952<SpiType>::SetGPIOOutputs(uint8_t gpio_state) noexcept {
 // =============================================================================
 
 template <typename SpiType>
+/** @copydoc ADS7952::spiTransfer16(uint16_t) */
 uint16_t ADS7952<SpiType>::spiTransfer16(uint16_t command) noexcept {
   uint8_t tx[2] = {
       static_cast<uint8_t>((command >> 8) & 0xFF),  // MSB first
@@ -401,6 +419,7 @@ uint16_t ADS7952<SpiType>::spiTransfer16(uint16_t command) noexcept {
 }
 
 template <typename SpiType>
+/** @copydoc ADS7952::commonControlBits() const */
 uint16_t ADS7952<SpiType>::commonControlBits() const noexcept {
   uint16_t bits = 0;
 
@@ -418,6 +437,7 @@ uint16_t ADS7952<SpiType>::commonControlBits() const noexcept {
 }
 
 template <typename SpiType>
+/** @copydoc ADS7952::popcount16(uint16_t) */
 constexpr uint8_t ADS7952<SpiType>::popcount16(uint16_t x) noexcept {
   x = x - ((x >> 1) & 0x5555);
   x = (x & 0x3333) + ((x >> 2) & 0x3333);

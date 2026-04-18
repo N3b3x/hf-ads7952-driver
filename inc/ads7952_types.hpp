@@ -137,6 +137,7 @@ struct ReadResult {
   uint8_t  channel = 0;        ///< Channel that was read (from response)
   Error    error   = Error::Ok;
 
+  /** @brief True when @ref error equals Error::Ok. */
   bool ok() const noexcept { return error == Error::Ok; }
 };
 
@@ -167,6 +168,7 @@ struct ChannelReadings {
 
   Error    error                 = Error::Ok;
 
+  /** @brief True when @ref error equals Error::Ok. */
   bool ok() const noexcept { return error == Error::Ok; }
 
   /** @brief Check if a specific channel has valid data in this reading. */
@@ -174,7 +176,10 @@ struct ChannelReadings {
     return ch < MAX_CHANNELS && (valid_mask & (1U << ch));
   }
 
-  /** @brief Count the number of channels with valid data. */
+  /**
+   * @brief Count channels currently marked valid.
+   * @return Number of set bits in @ref valid_mask for channels [0..11].
+   */
   uint8_t validChannelCount() const noexcept {
     uint16_t x = valid_mask;
     x = x - ((x >> 1) & 0x5555);
@@ -219,6 +224,9 @@ constexpr uint16_t ChannelMask(Channels... channels) noexcept {
 /**
  * @ingroup ads7952_channel_masks
  * @brief Build a contiguous channel range mask from first to last (inclusive).
+ * @param first First channel index (0-11).
+ * @param last Last channel index (0-11), must be >= @p first.
+ * @return Bitmask containing channels [first..last], or 0 if invalid input.
  */
 constexpr uint16_t ChannelRangeMask(uint8_t first, uint8_t last) noexcept {
   if (first > 11 || last > 11 || first > last) return 0;

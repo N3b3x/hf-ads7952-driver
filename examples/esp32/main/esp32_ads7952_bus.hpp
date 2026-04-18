@@ -53,14 +53,13 @@ public:
   };
 
   /**
-   * @brief Constructor with SPI configuration
-   *
-   * @param config SPI configuration parameters (must be fully specified)
+   * @brief Construct the SPI bus wrapper from a concrete configuration.
+   * @param config SPI host/pin/timing configuration to use.
    */
   explicit Esp32Ads7952SpiBus(const SPIConfig &config) : config_(config) {}
 
   /**
-   * @brief Destructor - cleans up SPI resources
+   * @brief Destructor that guarantees SPI resources are released.
    */
   ~Esp32Ads7952SpiBus() { deinitialize(); }
 
@@ -162,8 +161,8 @@ public:
   }
 
   /**
-   * @brief Check if SPI bus is initialized
-   * @return true if initialized
+   * @brief Check whether the SPI bus/device pair is ready for transfers.
+   * @return true when initialize() completed successfully and not deinitialized.
    */
   bool isInitialized() const { return initialized_; }
 

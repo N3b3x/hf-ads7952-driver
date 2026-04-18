@@ -27,6 +27,7 @@
 
 static const char *TAG = "ADS7952_MultiMode";
 
+/** @brief ESP-IDF entrypoint for the ADS7952 multi-mode demonstration app. */
 extern "C" void app_main(void) {
   ESP_LOGI(TAG, "ADS7952 Multi-Mode Example");
   ESP_LOGI(TAG, "===========================");

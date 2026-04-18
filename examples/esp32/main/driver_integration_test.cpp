@@ -61,6 +61,7 @@ static ads7952::ADS7952<Esp32Ads7952SpiBus> *g_adc = nullptr;
 // INITIALIZATION TESTS
 // =============================================================================
 
+/** @brief Verify SPI bus object exists and reports initialized state. */
 static bool test_spi_bus_initialization() noexcept {
   ESP_LOGI(TAG, "Testing SPI bus initialization...");
   bool ok = g_bus && g_bus->isInitialized();
@@ -68,6 +69,7 @@ static bool test_spi_bus_initialization() noexcept {
   return ok;
 }
 
+/** @brief Verify ADS7952 driver is initialized and mode is readable. */
 static bool test_driver_initialization() noexcept {
   ESP_LOGI(TAG, "Testing ADS7952 driver initialization...");
   bool ok = g_adc->IsInitialized();
@@ -80,6 +82,7 @@ static bool test_driver_initialization() noexcept {
 // CHANNEL READING TESTS
 // =============================================================================
 
+/** @brief Validate a single manual read on CH0. */
 static bool test_read_single_channel_manual() noexcept {
   ESP_LOGI(TAG, "Testing manual single-channel read (CH0)...");
   auto result = g_adc->ReadChannel(0);
@@ -89,6 +92,7 @@ static bool test_read_single_channel_manual() noexcept {
   return result.ok() && result.count <= ADS7952_TestConfig::ADCSpecs::MAX_COUNT;
 }
 
+/** @brief Validate manual reads across all 12 channels. */
 static bool test_read_all_12_channels_manual() noexcept {
   ESP_LOGI(TAG, "Testing manual read of all 12 channels...");
   bool all_ok = true;
@@ -104,6 +108,7 @@ static bool test_read_all_12_channels_manual() noexcept {
   return all_ok;
 }
 
+/** @brief Ensure invalid channel reads return InvalidChannel error. */
 static bool test_read_invalid_channel() noexcept {
   ESP_LOGI(TAG, "Testing read of invalid channel (CH12)...");
   auto result = g_adc->ReadChannel(12);
@@ -115,6 +120,7 @@ static bool test_read_invalid_channel() noexcept {
   return ok;
 }
 
+/** @brief Validate Auto-1 batch read returns valid data for enabled channels. */
 static bool test_read_all_channels_auto1() noexcept {
   ESP_LOGI(TAG, "Testing Auto-1 batch read of all channels...");
   g_adc->EnterAuto1Mode(true);
@@ -141,6 +147,7 @@ static bool test_read_all_channels_auto1() noexcept {
 // MODE SWITCHING TESTS
 // =============================================================================
 
+/** @brief Verify transition into Manual mode. */
 static bool test_enter_manual_mode() noexcept {
   ESP_LOGI(TAG, "Testing enter Manual mode...");
   bool ok = g_adc->EnterManualMode(0);
@@ -150,6 +157,7 @@ static bool test_enter_manual_mode() noexcept {
   return ok;
 }
 
+/** @brief Verify transition into Auto-1 mode. */
 static bool test_enter_auto1_mode() noexcept {
   ESP_LOGI(TAG, "Testing enter Auto-1 mode...");
   bool ok = g_adc->EnterAuto1Mode(true);
@@ -159,6 +167,7 @@ static bool test_enter_auto1_mode() noexcept {
   return ok;
 }
 
+/** @brief Verify transition into Auto-2 mode and restore Auto-1. */
 static bool test_enter_auto2_mode() noexcept {
   ESP_LOGI(TAG, "Testing enter Auto-2 mode...");
   bool ok = g_adc->EnterAuto2Mode(true);
@@ -170,6 +179,7 @@ static bool test_enter_auto2_mode() noexcept {
   return ok;
 }
 
+/** @brief Validate full mode round-trip sequence across all modes. */
 static bool test_mode_round_trip() noexcept {
   ESP_LOGI(TAG, "Testing mode round-trip: Auto1→Manual→Auto2→Auto1...");
   g_adc->EnterAuto1Mode(true);
@@ -190,6 +200,7 @@ static bool test_mode_round_trip() noexcept {
 // AUTO SEQUENCE TESTS
 // =============================================================================
 
+/** @brief Program Auto-1 subset mask and verify four channels are returned. */
 static bool test_program_auto1_subset() noexcept {
   ESP_LOGI(TAG, "Testing Auto-1 programming with subset (CH0-3)...");
   bool ok = g_adc->ProgramAuto1Channels(ads7952::kFirstFour);  // CH0-CH3
@@ -212,6 +223,7 @@ static bool test_program_auto1_subset() noexcept {
   return ok;
 }
 
+/** @brief Program Auto-2 last channel and verify it is stored. */
 static bool test_program_auto2_last_channel() noexcept {
   ESP_LOGI(TAG, "Testing Auto-2 programming (last_ch=5)...");
   bool ok = g_adc->ProgramAuto2LastChannel(5);
@@ -224,6 +236,7 @@ static bool test_program_auto2_last_channel() noexcept {
   return ok;
 }
 
+/** @brief Verify invalid Auto-2 last channel is rejected without state change. */
 static bool test_program_auto2_invalid_channel() noexcept {
   ESP_LOGI(TAG, "Testing Auto-2 programming with invalid channel (12)...");
   uint8_t prev = g_adc->GetAuto2LastChannel();
@@ -240,6 +253,7 @@ static bool test_program_auto2_invalid_channel() noexcept {
 // RANGE TESTS
 // =============================================================================
 
+/** @brief Verify Vref range selection and active reference value. */
 static bool test_set_range_vref() noexcept {
   ESP_LOGI(TAG, "Testing set range to Vref...");
   bool ok = g_adc->SetRange(ads7952::Range::Vref);
@@ -252,6 +266,7 @@ static bool test_set_range_vref() noexcept {
   return ok;
 }
 
+/** @brief Verify 2xVref range selection and clamped active reference. */
 static bool test_set_range_2vref() noexcept {
   ESP_LOGI(TAG, "Testing set range to 2×Vref...");
   bool ok = g_adc->SetRange(ads7952::Range::TwoVref);
@@ -267,6 +282,7 @@ static bool test_set_range_2vref() noexcept {
   return ok;
 }
 
+/** @brief Confirm channel reads remain valid after changing range. */
 static bool test_reading_after_range_change() noexcept {
   ESP_LOGI(TAG, "Testing channel read after range change...");
   g_adc->SetRange(ads7952::Range::TwoVref);
@@ -285,6 +301,7 @@ static bool test_reading_after_range_change() noexcept {
 // ALARM & GPIO TESTS
 // =============================================================================
 
+/** @brief Program a low alarm threshold for CH0. */
 static bool test_program_alarm_low() noexcept {
   ESP_LOGI(TAG, "Testing alarm programming (CH0, Low, threshold=1000)...");
   bool ok = g_adc->ProgramAlarm(0, ads7952::AlarmBound::Low, 1000);
@@ -292,6 +309,7 @@ static bool test_program_alarm_low() noexcept {
   return ok;
 }
 
+/** @brief Program a high alarm threshold for CH5. */
 static bool test_program_alarm_high() noexcept {
   ESP_LOGI(TAG, "Testing alarm programming (CH5, High, threshold=3500)...");
   bool ok = g_adc->ProgramAlarm(5, ads7952::AlarmBound::High, 3500);
@@ -299,6 +317,7 @@ static bool test_program_alarm_high() noexcept {
   return ok;
 }
 
+/** @brief Ensure invalid channel alarm programming fails. */
 static bool test_program_alarm_invalid_channel() noexcept {
   ESP_LOGI(TAG, "Testing alarm programming with invalid channel (CH12)...");
   bool ok = !g_adc->ProgramAlarm(12, ads7952::AlarmBound::Low, 1000);
@@ -306,6 +325,7 @@ static bool test_program_alarm_invalid_channel() noexcept {
   return ok;
 }
 
+/** @brief Program low/high alarm thresholds via voltage API. */
 static bool test_program_alarm_voltage() noexcept {
   ESP_LOGI(TAG, "Testing voltage-based alarm (CH2, Low=0.5V, High=2.0V)...");
   bool low_ok = g_adc->ProgramAlarmVoltage(2, ads7952::AlarmBound::Low, 0.5f);
@@ -317,6 +337,7 @@ static bool test_program_alarm_voltage() noexcept {
   return ok;
 }
 
+/** @brief Program default GPIO configuration frame. */
 static bool test_program_gpio_default() noexcept {
   ESP_LOGI(TAG, "Testing GPIO programming (default config)...");
   ads7952::GPIOConfig config{};
@@ -325,6 +346,7 @@ static bool test_program_gpio_default() noexcept {
   return ok;
 }
 
+/** @brief Configure GPIO outputs and toggle output patterns. */
 static bool test_program_gpio_outputs() noexcept {
   ESP_LOGI(TAG, "Testing GPIO output control...");
   ads7952::GPIOConfig config{};
@@ -347,6 +369,7 @@ static bool test_program_gpio_outputs() noexcept {
 // POWER DOWN TESTS
 // =============================================================================
 
+/** @brief Validate power-down entry/exit and post-resume conversion capability. */
 static bool test_power_down_and_resume() noexcept {
   ESP_LOGI(TAG, "Testing power-down and resume...");
 
@@ -373,6 +396,7 @@ static bool test_power_down_and_resume() noexcept {
 // VOLTAGE CONVERSION TESTS
 // =============================================================================
 
+/** @brief Verify static CountToVoltage at zero input count. */
 static bool test_count_to_voltage_zero() noexcept {
   ESP_LOGI(TAG, "Testing CountToVoltage(0) == 0.0 V...");
   float v = ads7952::ADS7952<Esp32Ads7952SpiBus>::CountToVoltage(
@@ -382,6 +406,7 @@ static bool test_count_to_voltage_zero() noexcept {
   return ok;
 }
 
+/** @brief Verify static CountToVoltage at full-scale input count. */
 static bool test_count_to_voltage_max() noexcept {
   ESP_LOGI(TAG, "Testing CountToVoltage(4095) == Vref...");
   float v = ads7952::ADS7952<Esp32Ads7952SpiBus>::CountToVoltage(
@@ -391,6 +416,7 @@ static bool test_count_to_voltage_max() noexcept {
   return ok;
 }
 
+/** @brief Verify static CountToVoltage at mid-scale count. */
 static bool test_count_to_voltage_midscale() noexcept {
   ESP_LOGI(TAG, "Testing CountToVoltage(2048) == ~Vref/2...");
   float v = ads7952::ADS7952<Esp32Ads7952SpiBus>::CountToVoltage(
@@ -402,6 +428,7 @@ static bool test_count_to_voltage_midscale() noexcept {
   return ok;
 }
 
+/** @brief Verify instance and static count-to-voltage conversions match. */
 static bool test_instance_count_to_voltage() noexcept {
   ESP_LOGI(TAG, "Testing instance CountToVoltage matches static...");
   float v_static = ads7952::ADS7952<Esp32Ads7952SpiBus>::CountToVoltage(
@@ -413,6 +440,7 @@ static bool test_instance_count_to_voltage() noexcept {
   return ok;
 }
 
+/** @brief Verify instance VoltageToCount around half-scale voltage. */
 static bool test_voltage_to_count_instance() noexcept {
   ESP_LOGI(TAG, "Testing instance VoltageToCount...");
   // VoltageToCount(1.25V) at Vref=2.5V should be ~2048
@@ -423,6 +451,7 @@ static bool test_voltage_to_count_instance() noexcept {
   return ok;
 }
 
+/** @brief Verify VoltageToCount clamps at boundary/invalid voltages. */
 static bool test_voltage_to_count_boundary() noexcept {
   ESP_LOGI(TAG, "Testing VoltageToCount boundary conditions...");
   uint16_t zero = g_adc->VoltageToCount(0.0f);
@@ -438,6 +467,7 @@ static bool test_voltage_to_count_boundary() noexcept {
 // STABILITY TESTS
 // =============================================================================
 
+/** @brief Run repeated manual reads and collect spread statistics. */
 static bool test_repeated_manual_reads() noexcept {
   ESP_LOGI(TAG, "Testing 100 repeated manual reads on CH0...");
   constexpr int N = 100;
@@ -463,6 +493,7 @@ static bool test_repeated_manual_reads() noexcept {
   return all_ok;
 }
 
+/** @brief Run repeated Auto-1 batch reads and require full masks each cycle. */
 static bool test_repeated_auto1_batch_reads() noexcept {
   ESP_LOGI(TAG, "Testing 50 repeated Auto-1 batch reads...");
   g_adc->EnterAuto1Mode(true);
@@ -486,6 +517,7 @@ static bool test_repeated_auto1_batch_reads() noexcept {
 // MAIN TEST RUNNER
 // =============================================================================
 
+/** @brief Execute enabled integration-test sections and print summary. */
 extern "C" void app_main(void) {
   ESP_LOGI(TAG, "ADS7952 Driver Integration Test Suite");
   ESP_LOGI(TAG, "======================================");

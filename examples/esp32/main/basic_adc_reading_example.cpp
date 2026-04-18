@@ -51,6 +51,7 @@
 
 static const char *TAG = "ADS7952_Basic";
 
+/** @brief ESP-IDF entry point for the basic ADS7952 read example. */
 extern "C" void app_main(void) {
   ESP_LOGI(TAG, "ADS7952 Basic ADC Reading Example");
   ESP_LOGI(TAG, "===================================");

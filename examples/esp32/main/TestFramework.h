@@ -39,6 +39,11 @@ static bool g_test_progress_initialized = false;
 static bool g_test_progress_state = false;
 static constexpr gpio_num_t TEST_PROGRESS_PIN = GPIO_NUM_14;
 
+/**
+ * @ingroup ads7952_examples_support
+ * @brief Initialize GPIO14 test progress indicator.
+ * @return true if initialized or already initialized.
+ */
 inline bool init_test_progress_indicator() noexcept {
   if (g_test_progress_initialized) {
     return true;
@@ -65,6 +70,10 @@ inline bool init_test_progress_indicator() noexcept {
   return true;
 }
 
+/**
+ * @ingroup ads7952_examples_support
+ * @brief Toggle GPIO14 indicator and emit status log.
+ */
 inline void flip_test_progress_indicator() noexcept {
   if (!g_test_progress_initialized) return;
   g_test_progress_state = !g_test_progress_state;
@@ -74,6 +83,10 @@ inline void flip_test_progress_indicator() noexcept {
   vTaskDelay(pdMS_TO_TICKS(50));
 }
 
+/**
+ * @ingroup ads7952_examples_support
+ * @brief Release GPIO14 resources and reset indicator state.
+ */
 inline void cleanup_test_progress_indicator() noexcept {
   if (g_test_progress_initialized) {
     gpio_set_level(TEST_PROGRESS_PIN, 0);
@@ -83,6 +96,11 @@ inline void cleanup_test_progress_indicator() noexcept {
   }
 }
 
+/**
+ * @ingroup ads7952_examples_support
+ * @brief Blink GPIO14 multiple times to mark section boundaries.
+ * @param blink_count Number of blink pulses.
+ */
 inline void output_section_indicator(uint8_t blink_count = 5) noexcept {
   if (!g_test_progress_initialized) return;
   for (uint8_t i = 0; i < blink_count; ++i) {
@@ -94,6 +112,10 @@ inline void output_section_indicator(uint8_t blink_count = 5) noexcept {
   g_test_progress_state = false;
 }
 
+/**
+ * @ingroup ads7952_examples_support
+ * @brief Ensure GPIO14 indicator has been initialized.
+ */
 inline void ensure_gpio14_initialized() noexcept {
   if (!g_test_progress_initialized) {
     init_test_progress_indicator();
@@ -109,6 +131,11 @@ struct TestResults {
   int failed_tests = 0;
   uint64_t total_execution_time_us = 0;
 
+  /**
+   * @brief Record one test result.
+   * @param passed True if the test passed.
+   * @param execution_time Execution time in microseconds.
+   */
   void add_result(bool passed, uint64_t execution_time) noexcept {
     total_tests++;
     total_execution_time_us += execution_time;
@@ -119,10 +146,18 @@ struct TestResults {
     }
   }
 
+  /**
+   * @brief Compute pass percentage over all executed tests.
+   * @return Success percentage in [0, 100].
+   */
   float get_success_percentage() const noexcept {
     return total_tests > 0 ? (static_cast<float>(passed_tests) / total_tests * 100.0f) : 0.0f;
   }
 
+  /**
+   * @brief Compute cumulative execution time in milliseconds.
+   * @return Total test runtime in milliseconds.
+   */
   float get_total_time_ms() const noexcept {
     return total_execution_time_us / 1000.0f;
   }
@@ -157,6 +192,11 @@ struct TestTaskContext {
   SemaphoreHandle_t completion_semaphore;
 };
 
+/**
+ * @ingroup ads7952_examples_support
+ * @brief FreeRTOS task entry point for executing one test case.
+ * @param param Pointer to TestTaskContext.
+ */
 inline void test_task_trampoline(void* param) {
   TestTaskContext* ctx = static_cast<TestTaskContext*>(param);
   ESP_LOGI(ctx->tag,
@@ -229,6 +269,12 @@ inline void print_test_summary(const TestResults& test_results, const char* test
   }
 }
 
+/**
+ * @ingroup ads7952_examples_support
+ * @brief Print section-configuration help banner.
+ * @param tag ESP log tag.
+ * @param test_suite_name Human-readable test suite name.
+ */
 inline void print_test_section_status(const char* tag, const char* test_suite_name) noexcept {
   ensure_gpio14_initialized();
   ESP_LOGI(tag, "\n");
@@ -240,6 +286,13 @@ inline void print_test_section_status(const char* tag, const char* test_suite_na
   ESP_LOGI(tag, "╔══════════════════════════════════════════════════════════════════════════════╗");
 }
 
+/**
+ * @ingroup ads7952_examples_support
+ * @brief Print a section header for enabled/disabled test groups.
+ * @param tag ESP log tag.
+ * @param section_name Section label.
+ * @param enabled Whether the section is enabled.
+ */
 inline void print_test_section_header(const char* tag, const char* section_name,
                                       bool enabled = true) noexcept {
   if (enabled) {

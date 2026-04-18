@@ -27,6 +27,7 @@
 
 static const char *TAG = "ADS7952_AlarmGPIO";
 
+/** @brief ESP-IDF entrypoint running alarm and GPIO demonstration loop. */
 extern "C" void app_main(void) {
   ESP_LOGI(TAG, "ADS7952 Alarm & GPIO Example");
   ESP_LOGI(TAG, "=============================");
