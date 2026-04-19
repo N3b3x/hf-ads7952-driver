@@ -9,9 +9,10 @@ var searchData=
   ['readme_2emd_6',['README.md',['../README_8md.html',1,'']]],
   ['readresult_7',['ReadResult',['../structads7952_1_1ReadResult.html',1,'ads7952']]],
   ['reference_8',['📖 API Reference',['../index.html#autotoc_md8',1,'']]],
-  ['register_20and_20frame_20constants_9',['Register and Frame Constants',['../group__ads7952__registers.html',1,'']]],
-  ['reset_5fall_5fregisters_10',['reset_all_registers',['../structads7952_1_1GPIOConfig.html#af74fbbe2cd81ec38ce3c5fc9ec62ad4e',1,'ads7952::GPIOConfig']]],
-  ['reset_5fall_5fregs_11',['RESET_ALL_REGS',['../namespaceads7952_1_1reg_1_1GPIOProg.html#a1da2a9b9af42d463c633d9583fa48fc1',1,'ads7952::reg::GPIOProg']]],
-  ['reset_5fcounter_12',['RESET_COUNTER',['../namespaceads7952_1_1reg.html#adeaa8bf95476c2ef38d7160493652a9e',1,'ads7952::reg']]],
-  ['resolution_5fbits_13',['RESOLUTION_BITS',['../group__ads7952__config.html#ga394966ac3e20e1810cb023708944a546',1,'ADS7952_CFG::RESOLUTION_BITS'],['../namespaceads7952_1_1reg.html#ae5a7f16955ae03c1df71b1ce835bca9f',1,'ads7952::reg::RESOLUTION_BITS']]]
+  ['references_9',['🔗 References',['../index.html#autotoc_md15',1,'']]],
+  ['register_20and_20frame_20constants_10',['Register and Frame Constants',['../group__ads7952__registers.html',1,'']]],
+  ['reset_5fall_5fregisters_11',['reset_all_registers',['../structads7952_1_1GPIOConfig.html#af74fbbe2cd81ec38ce3c5fc9ec62ad4e',1,'ads7952::GPIOConfig']]],
+  ['reset_5fall_5fregs_12',['RESET_ALL_REGS',['../namespaceads7952_1_1reg_1_1GPIOProg.html#a1da2a9b9af42d463c633d9583fa48fc1',1,'ads7952::reg::GPIOProg']]],
+  ['reset_5fcounter_13',['RESET_COUNTER',['../namespaceads7952_1_1reg.html#adeaa8bf95476c2ef38d7160493652a9e',1,'ads7952::reg']]],
+  ['resolution_5fbits_14',['RESOLUTION_BITS',['../group__ads7952__config.html#ga394966ac3e20e1810cb023708944a546',1,'ADS7952_CFG::RESOLUTION_BITS'],['../namespaceads7952_1_1reg.html#ae5a7f16955ae03c1df71b1ce835bca9f',1,'ads7952::reg::RESOLUTION_BITS']]]
 ];

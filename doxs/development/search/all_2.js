@@ -15,7 +15,7 @@ var searchData=
   ['contents_12',['📚 Table of Contents',['../index.html#autotoc_md3',1,'']]],
   ['continue_13',['CONTINUE',['../namespaceads7952_1_1reg_1_1Mode.html#a7e565c3e2addf95a6f530be9e2bcdfb0',1,'ads7952::reg::Mode']]],
   ['continue_5fprog_14',['CONTINUE_PROG',['../namespaceads7952_1_1reg_1_1Alarm.html#ad5b47b9bf2163ced66a1b2085a5de0c6',1,'ads7952::reg::Alarm']]],
-  ['contributing_15',['🤝 Contributing',['../index.html#autotoc_md15',1,'']]],
+  ['contributing_15',['🤝 Contributing',['../index.html#autotoc_md16',1,'']]],
   ['control_16',['Mode Control',['../index.html#autotoc_md10',1,'']]],
   ['conversion_20helpers_17',['Conversion Helpers',['../group__ads7952__conversion.html',1,'']]],
   ['core_20driver_20api_18',['Core Driver API',['../group__ads7952__core.html',1,'']]],

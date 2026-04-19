@@ -41,8 +41,9 @@ var NAVTREE =
       ] ],
       [ "📊 Examples", "index.html#autotoc_md13", null ],
       [ "📚 Documentation", "index.html#autotoc_md14", null ],
-      [ "🤝 Contributing", "index.html#autotoc_md15", null ],
-      [ "📄 License", "index.html#autotoc_md16", null ]
+      [ "🔗 References", "index.html#autotoc_md15", null ],
+      [ "🤝 Contributing", "index.html#autotoc_md16", null ],
+      [ "📄 License", "index.html#autotoc_md17", null ]
     ] ],
     [ "Topics", "topics.html", "topics" ],
     [ "Namespaces", "namespaces.html", [
