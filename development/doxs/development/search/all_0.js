@@ -3,7 +3,7 @@ var searchData=
   ['abstraction_0',['SPI Transport Abstraction',['../group__ads7952__transport.html',1,'']]],
   ['ads7952_1',['ADS7952',['../classads7952_1_1ADS7952.html',1,'ads7952']]],
   ['ads7952_2',['ads7952',['../namespaceads7952.html',1,'']]],
-  ['ads7952_3',['ADS7952',['../group__ads7952__core.html#ga338c213ab9d6019acc8738f7fedf9fe2',1,'ads7952::ADS7952::ADS7952(SpiType &amp;spi, float vref=ADS7952_CFG::DEFAULT_VREF, float va=ADS7952_CFG::DEFAULT_VA) noexcept'],['../classads7952_1_1ADS7952.html#af1771d10815830065a1c1f1acfe6db7c',1,'ads7952::ADS7952::ADS7952(const ADS7952 &amp;)=delete']]],
+  ['ads7952_3',['ADS7952',['../group__ads7952__core.html#gafb11d1cacb5ada7d97218760bcf68afb',1,'ads7952::ADS7952::ADS7952(SpiType &amp;spi, float vref=ADS7952_CFG::DEFAULT_VREF, float va=ADS7952_CFG::DEFAULT_VA, Range initial_range=ADS7952_CFG::DEFAULT_RANGE) noexcept'],['../classads7952_1_1ADS7952.html#af1771d10815830065a1c1f1acfe6db7c',1,'ads7952::ADS7952::ADS7952(const ADS7952 &amp;)=delete']]],
   ['ads7952_20driver_4',['ADS7952 Driver',['../group__ads7952__driver.html',1,'ADS7952 Driver'],['../index.html',1,'HF-ADS7952 Driver'],['../index.html#autotoc_md2',1,'HF-ADS7952 Driver']]],
   ['ads7952_2ehpp_5',['ads7952.hpp',['../ads7952_8hpp.html',1,'']]],
   ['ads7952_2eipp_6',['ads7952.ipp',['../ads7952_8ipp.html',1,'']]],

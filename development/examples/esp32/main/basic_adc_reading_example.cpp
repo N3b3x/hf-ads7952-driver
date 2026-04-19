@@ -67,9 +67,9 @@ extern "C" void app_main(void) {
     return;
   }
 
-  // Create ADS7952 driver with 2.5 V reference, 5.0 V supply
+    // Create ADS7952 driver with 2.5 V reference, 5.0 V supply, and 2xVref range
   ads7952::ADS7952<Esp32Ads7952SpiBus> adc(
-      *bus, ADS7952_TestConfig::ADCSpecs::VREF, 5.0f);
+      *bus, ADS7952_TestConfig::ADCSpecs::VREF, 5.0f, ads7952::Range::TwoVref);
 
   // Initialize: discards first invalid conversion, programs defaults,
   //             enters Auto-1 mode. Safe to call repeatedly.

@@ -117,9 +117,15 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga338c213ab9d6019acc8738f7fedf9fe2" id="r_ga338c213ab9d6019acc8738f7fedf9fe2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga338c213ab9d6019acc8738f7fedf9fe2">ads7952::ADS7952&lt; SpiType &gt;::ADS7952</a> (SpiType &amp;spi, float vref=<a class="el" href="group__ads7952__config.html#gab1126e4816450bd31e3ebcae5c1d4db2">ADS7952_CFG::DEFAULT_VREF</a>, float va=<a class="el" href="group__ads7952__config.html#ga47ee68e092b956292c331d77c4f30994">ADS7952_CFG::DEFAULT_VA</a>) noexcept</td></tr>
-<tr class="memdesc:ga338c213ab9d6019acc8738f7fedf9fe2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="classads7952_1_1ADS7952.html" title="Main driver class for the ADS7952 ADC.">ADS7952</a> driver instance.  <br /></td></tr>
-<tr class="separator:ga338c213ab9d6019acc8738f7fedf9fe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafb11d1cacb5ada7d97218760bcf68afb" id="r_gafb11d1cacb5ada7d97218760bcf68afb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gafb11d1cacb5ada7d97218760bcf68afb">ads7952::ADS7952&lt; SpiType &gt;::ADS7952</a> (SpiType &amp;spi, float vref=<a class="el" href="group__ads7952__config.html#gab1126e4816450bd31e3ebcae5c1d4db2">ADS7952_CFG::DEFAULT_VREF</a>, float va=<a class="el" href="group__ads7952__config.html#ga47ee68e092b956292c331d77c4f30994">ADS7952_CFG::DEFAULT_VA</a>, <a class="el" href="group__ads7952__types.html#ga70a3487be9a660a4a77195cf09dcf4bf">Range</a> initial_range=<a class="el" href="group__ads7952__config.html#ga4db1f25dc20244c2eec425d9fcd62420">ADS7952_CFG::DEFAULT_RANGE</a>) noexcept</td></tr>
+<tr class="memdesc:gafb11d1cacb5ada7d97218760bcf68afb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="classads7952_1_1ADS7952.html" title="Main driver class for the ADS7952 ADC.">ADS7952</a> driver instance.  <br /></td></tr>
+<tr class="separator:gafb11d1cacb5ada7d97218760bcf68afb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3d27a405963f157671348f7a2e20f6af" id="r_ga3d27a405963f157671348f7a2e20f6af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga3d27a405963f157671348f7a2e20f6af">ads7952::ADS7952&lt; SpiType &gt;::SetVref</a> (float vref) noexcept</td></tr>
+<tr class="memdesc:ga3d27a405963f157671348f7a2e20f6af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the Vref value for voltage calculations.  <br /></td></tr>
+<tr class="separator:ga3d27a405963f157671348f7a2e20f6af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga99427d545376463581ecd1c70604232f" id="r_ga99427d545376463581ecd1c70604232f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga99427d545376463581ecd1c70604232f">ads7952::ADS7952&lt; SpiType &gt;::SetVA</a> (float va) noexcept</td></tr>
+<tr class="memdesc:ga99427d545376463581ecd1c70604232f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the VA supply voltage value.  <br /></td></tr>
+<tr class="separator:ga99427d545376463581ecd1c70604232f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf3696ad585bf7e8044b548c42f52b019" id="r_gaf3696ad585bf7e8044b548c42f52b019"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gaf3696ad585bf7e8044b548c42f52b019">ads7952::ADS7952&lt; SpiType &gt;::EnsureInitialized</a> (bool force=false) noexcept</td></tr>
 <tr class="memdesc:gaf3696ad585bf7e8044b548c42f52b019"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ensure the driver is initialized — idempotent, safe to call repeatedly.  <br /></td></tr>
 <tr class="separator:gaf3696ad585bf7e8044b548c42f52b019"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -172,8 +178,8 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>High-level class for initialization, conversion, sequencing, and programming. </p>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ga338c213ab9d6019acc8738f7fedf9fe2" name="ga338c213ab9d6019acc8738f7fedf9fe2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga338c213ab9d6019acc8738f7fedf9fe2">&#9670;&#160;</a></span>ADS7952()</h2>
+<a id="gafb11d1cacb5ada7d97218760bcf68afb" name="gafb11d1cacb5ada7d97218760bcf68afb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafb11d1cacb5ada7d97218760bcf68afb">&#9670;&#160;</a></span>ADS7952()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -196,7 +202,12 @@ template&lt;typename SpiType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>va</em><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="group__ads7952__config.html#ga47ee68e092b956292c331d77c4f30994">ADS7952_CFG::DEFAULT_VA</a></span></span>&#160;)</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>va</em><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="group__ads7952__config.html#ga47ee68e092b956292c331d77c4f30994">ADS7952_CFG::DEFAULT_VA</a></span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__ads7952__types.html#ga70a3487be9a660a4a77195cf09dcf4bf">Range</a></td>          <td class="paramname"><span class="paramname"><em>initial_range</em><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="group__ads7952__config.html#ga4db1f25dc20244c2eec425d9fcd62420">ADS7952_CFG::DEFAULT_RANGE</a></span></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -212,7 +223,8 @@ template&lt;typename SpiType &gt; </div>
   <table class="params">
     <tr><td class="paramname">spi</td><td>Reference to platform-specific SPI interface </td></tr>
     <tr><td class="paramname">vref</td><td>REFP pin voltage in volts (default 2.5V for REF5025) </td></tr>
-    <tr><td class="paramname">va</td><td>VA supply voltage in volts (default 5.0V)</td></tr>
+    <tr><td class="paramname">va</td><td>VA supply voltage in volts (default 5.0V) </td></tr>
+    <tr><td class="paramname">initial_range</td><td>Initial input range to apply for conversions</td></tr>
   </table>
   </dd>
 </dl>
@@ -220,7 +232,8 @@ template&lt;typename SpiType &gt; </div>
   <table class="params">
     <tr><td class="paramname">spi</td><td>Reference to platform-specific SPI interface </td></tr>
     <tr><td class="paramname">vref</td><td>REFP pin voltage in volts (default 2.5V for REF5025) </td></tr>
-    <tr><td class="paramname">va</td><td>VA supply voltage in volts (default 5.0V)</td></tr>
+    <tr><td class="paramname">va</td><td>VA supply voltage in volts (default 5.0V) </td></tr>
+    <tr><td class="paramname">initial_range</td><td>Initial input range to apply for conversions</td></tr>
   </table>
   </dd>
 </dl>
@@ -271,7 +284,7 @@ template&lt;typename SpiType &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Voltage in volts</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00174">174</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00192">192</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
 
 <p class="reference">References <a class="el" href="ads7952__registers_8hpp_source.html#l00231">ads7952::reg::MAX_COUNT</a>.</p>
 
@@ -321,7 +334,7 @@ template&lt;typename SpiType &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the driver is initialized after the call</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00045">45</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00063">63</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
 
 </div>
 </div>
@@ -367,7 +380,7 @@ template&lt;typename SpiType &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true on success</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00206">206</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00224">224</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
 
 <p class="reference">References <a class="el" href="group__ads7952__types.html#gga610f14a0a9791582a61c2ab966da8285ad2553937694277dab1507dbf15e47513">ads7952::Auto1</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00033">ads7952::reg::Mode::AUTO_1</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00055">ads7952::reg::NO_RESET_COUNTER</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00048">ads7952::reg::PROGRAM_ENABLE</a>, and <a class="el" href="ads7952__registers_8hpp_source.html#l00054">ads7952::reg::RESET_COUNTER</a>.</p>
 
@@ -415,7 +428,7 @@ template&lt;typename SpiType &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true on success</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00217">217</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00235">235</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
 
 <p class="reference">References <a class="el" href="group__ads7952__types.html#gga610f14a0a9791582a61c2ab966da8285a6532807bb650f3695e36ff361ddcbd9b">ads7952::Auto2</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00034">ads7952::reg::Mode::AUTO_2</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00055">ads7952::reg::NO_RESET_COUNTER</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00048">ads7952::reg::PROGRAM_ENABLE</a>, and <a class="el" href="ads7952__registers_8hpp_source.html#l00054">ads7952::reg::RESET_COUNTER</a>.</p>
 
@@ -463,7 +476,7 @@ template&lt;typename SpiType &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true on success</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00194">194</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00212">212</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
 
 <p class="reference">References <a class="el" href="ads7952__registers_8hpp_source.html#l00066">ads7952::reg::ChannelSelect()</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00032">ads7952::reg::Mode::MANUAL</a>, <a class="el" href="group__ads7952__types.html#gga610f14a0a9791582a61c2ab966da8285ae1ba155a9f2e8c3be94020eef32a0301">ads7952::Manual</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00229">ads7952::reg::NUM_CHANNELS</a>, and <a class="el" href="ads7952__registers_8hpp_source.html#l00048">ads7952::reg::PROGRAM_ENABLE</a>.</p>
 
@@ -529,7 +542,7 @@ template&lt;typename SpiType &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>true on success</dd></dl>
 <div class="fragment"><div class="line">adc.ProgramAlarm(0, <a class="code hl_enumvalue" href="group__ads7952__types.html#gga80bb06625f3b99074431f3ef7699c659a655d20c1ca69519ca647684edbb2db35">ads7952::AlarmBound::High</a>, 3000);  <span class="comment">// Raw count</span></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00315">315</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00333">333</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
 
 <p class="reference">References <a class="el" href="ads7952__registers_8hpp_source.html#l00038">ads7952::reg::Mode::ALARM_GROUP_0</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00039">ads7952::reg::Mode::ALARM_GROUP_1</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00040">ads7952::reg::Mode::ALARM_GROUP_2</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00168">ads7952::reg::Alarm::ChannelInGroup()</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00233">ads7952::reg::CHANNELS_PER_ALARM_GROUP</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00031">ads7952::reg::Mode::CONTINUE</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00175">ads7952::reg::Alarm::EXIT_NEXT_FRAME</a>, <a class="el" href="group__ads7952__types.html#gga80bb06625f3b99074431f3ef7699c659a655d20c1ca69519ca647684edbb2db35">ads7952::High</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00172">ads7952::reg::Alarm::HIGH_REGISTER</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00229">ads7952::reg::NUM_CHANNELS</a>, and <a class="el" href="ads7952__registers_8hpp_source.html#l00183">ads7952::reg::Alarm::Threshold12To10()</a>.</p>
 
@@ -610,7 +623,7 @@ template&lt;typename SpiType &gt; </div>
 <div class="line">adc.ProgramAlarmVoltage(0, <a class="code hl_enumvalue" href="group__ads7952__types.html#gga80bb06625f3b99074431f3ef7699c659a28d0edd045e05cf5af64e35ae0c4c6ef">ads7952::AlarmBound::Low</a>,  0.5f);  <span class="comment">// re-sync</span></div>
 <div class="line">adc.ProgramAlarmVoltage(0, <a class="code hl_enumvalue" href="group__ads7952__types.html#gga80bb06625f3b99074431f3ef7699c659a655d20c1ca69519ca647684edbb2db35">ads7952::AlarmBound::High</a>, 2.0f);  <span class="comment">// re-sync</span></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00356">356</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00374">374</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
 
 <p class="reference">References <a class="el" href="ads7952__types_8hpp_source.html#l00276">ads7952::VoltageToCount()</a>.</p>
 
@@ -672,7 +685,7 @@ template&lt;typename SpiType &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true on success</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00232">232</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00250">250</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
 
 <p class="reference">References <a class="el" href="ads7952__registers_8hpp_source.html#l00036">ads7952::reg::Mode::AUTO_1_PROG</a>.</p>
 
@@ -720,7 +733,7 @@ template&lt;typename SpiType &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true on success</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00250">250</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00268">268</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
 
 <p class="reference">References <a class="el" href="ads7952__registers_8hpp_source.html#l00124">ads7952::reg::Auto2LastChannel()</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00037">ads7952::reg::Mode::AUTO_2_PROG</a>, and <a class="el" href="ads7952__registers_8hpp_source.html#l00229">ads7952::reg::NUM_CHANNELS</a>.</p>
 
@@ -770,7 +783,7 @@ template&lt;typename SpiType &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true on success</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00266">266</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00284">284</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
 
 <p class="reference">References <a class="el" href="group__ads7952__types.html#gga44dcee7079caeded0063930b8e30b3aaaa4b03abff0e37da035d6fc0f9a4b1235">ads7952::GPIO</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00146">ads7952::reg::GPIOProg::GPIO0_HI_ALARM</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00145">ads7952::reg::GPIOProg::GPIO0_HI_LO_ALARM</a>, <a class="el" href="group__ads7952__types.html#gga44dcee7079caeded0063930b8e30b3aaa921b538f367a358bb886d8bc8ccfdf35">ads7952::GPIO0_HighAlarm</a>, <a class="el" href="group__ads7952__types.html#gga44dcee7079caeded0063930b8e30b3aaa5002d09c923ca4be18a3bb358b04fb82">ads7952::GPIO0_HighAndLowAlarm</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00147">ads7952::reg::GPIOProg::GPIO1_HI_ALARM</a>, <a class="el" href="group__ads7952__types.html#gga44dcee7079caeded0063930b8e30b3aaab8024fd92930d18d012c784bcaefe8df">ads7952::GPIO1_HighAlarm</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00148">ads7952::reg::GPIOProg::GPIO1_LO_GPIO0_HI_ALARM</a>, <a class="el" href="group__ads7952__types.html#gga44dcee7079caeded0063930b8e30b3aaad4e1b75042f0fdb809dd0aa8d4fb677c">ads7952::GPIO1_LowAlarm_GPIO0_HighAlarm</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00141">ads7952::reg::GPIOProg::GPIO2_RANGE_IN</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00138">ads7952::reg::GPIOProg::GPIO3_PWRDOWN_IN</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00035">ads7952::reg::Mode::GPIO_PROG</a>, and <a class="el" href="ads7952__registers_8hpp_source.html#l00135">ads7952::reg::GPIOProg::RESET_ALL_REGS</a>.</p>
 
@@ -808,9 +821,9 @@ template&lt;typename SpiType &gt; </div>
 <p>Enters Auto-1 mode with channel counter reset and reads until all programmed channels are received or timeout. </p><dl class="section pre"><dt>Precondition</dt><dd><a class="el" href="#gaf3696ad585bf7e8044b548c42f52b019" title="Ensure the driver is initialized — idempotent, safe to call repeatedly.">EnsureInitialized()</a> has been called successfully.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="structads7952_1_1ChannelReadings.html">ChannelReadings</a> with per-channel counts and voltages</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00117">117</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00135">135</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
 
-<p class="reference">References <a class="el" href="group__ads7952__types.html#gga610f14a0a9791582a61c2ab966da8285ad2553937694277dab1507dbf15e47513">ads7952::Auto1</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00033">ads7952::reg::Mode::AUTO_1</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00031">ads7952::reg::Mode::CONTINUE</a>, <a class="el" href="ads7952__types_8hpp_source.html#l00169">ads7952::ChannelReadings::error</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00213">ads7952::reg::Response::GetChannel()</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00221">ads7952::reg::Response::GetData()</a>, <a class="el" href="ads7952__types_8hpp_source.html#l00149">ads7952::ChannelReadings::MAX_CHANNELS</a>, <a class="el" href="group__ads7952__types.html#ggab2930d74716da4599f87f3939ac383a1a9646ad3a1c3e708b4fa8b4b4270fbab6">ads7952::NotInitialized</a>, <a class="el" href="group__ads7952__types.html#ggab2930d74716da4599f87f3939ac383a1aa60852f204ed8028c1c58808b746d115">ads7952::Ok</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00049">ads7952::reg::PROGRAM_RETAIN</a>, <a class="el" href="ads7952__config_8hpp_source.html#l00081">ADS7952_CFG::READ_ALL_MAX_EXTRA_FRAMES</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00054">ads7952::reg::RESET_COUNTER</a>, and <a class="el" href="group__ads7952__types.html#ggab2930d74716da4599f87f3939ac383a1ac85a251cc457840f1e032f1b733e9398">ads7952::Timeout</a>.</p>
+<p class="reference">References <a class="el" href="group__ads7952__types.html#gga610f14a0a9791582a61c2ab966da8285ad2553937694277dab1507dbf15e47513">ads7952::Auto1</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00033">ads7952::reg::Mode::AUTO_1</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00031">ads7952::reg::Mode::CONTINUE</a>, <a class="el" href="ads7952__types_8hpp_source.html#l00169">ads7952::ChannelReadings::error</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00213">ads7952::reg::Response::GetChannel()</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00221">ads7952::reg::Response::GetData()</a>, <a class="el" href="ads7952__types_8hpp_source.html#l00149">ads7952::ChannelReadings::MAX_CHANNELS</a>, <a class="el" href="group__ads7952__types.html#ggab2930d74716da4599f87f3939ac383a1a9646ad3a1c3e708b4fa8b4b4270fbab6">ads7952::NotInitialized</a>, <a class="el" href="group__ads7952__types.html#ggab2930d74716da4599f87f3939ac383a1aa60852f204ed8028c1c58808b746d115">ads7952::Ok</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00049">ads7952::reg::PROGRAM_RETAIN</a>, <a class="el" href="ads7952__config_8hpp_source.html#l00087">ADS7952_CFG::READ_ALL_MAX_EXTRA_FRAMES</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00054">ads7952::reg::RESET_COUNTER</a>, and <a class="el" href="group__ads7952__types.html#ggab2930d74716da4599f87f3939ac383a1ac85a251cc457840f1e032f1b733e9398">ads7952::Timeout</a>.</p>
 
 </div>
 </div>
@@ -858,7 +871,7 @@ template&lt;typename SpiType &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="structads7952_1_1ReadResult.html">ReadResult</a> with count, voltage, channel, and error status</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00083">83</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00101">101</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
 
 <p class="reference">References <a class="el" href="ads7952__registers_8hpp_source.html#l00066">ads7952::reg::ChannelSelect()</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00031">ads7952::reg::Mode::CONTINUE</a>, <a class="el" href="ads7952__types_8hpp_source.html#l00138">ads7952::ReadResult::error</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00213">ads7952::reg::Response::GetChannel()</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00221">ads7952::reg::Response::GetData()</a>, <a class="el" href="group__ads7952__types.html#ggab2930d74716da4599f87f3939ac383a1a94a9e4213f08b322090d83fa5a8be5e4">ads7952::InvalidChannel</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00032">ads7952::reg::Mode::MANUAL</a>, <a class="el" href="group__ads7952__types.html#gga610f14a0a9791582a61c2ab966da8285ae1ba155a9f2e8c3be94020eef32a0301">ads7952::Manual</a>, <a class="el" href="group__ads7952__types.html#ggab2930d74716da4599f87f3939ac383a1a9646ad3a1c3e708b4fa8b4b4270fbab6">ads7952::NotInitialized</a>, <a class="el" href="ads7952__registers_8hpp_source.html#l00229">ads7952::reg::NUM_CHANNELS</a>, <a class="el" href="group__ads7952__types.html#ggab2930d74716da4599f87f3939ac383a1aa60852f204ed8028c1c58808b746d115">ads7952::Ok</a>, and <a class="el" href="ads7952__registers_8hpp_source.html#l00049">ads7952::reg::PROGRAM_RETAIN</a>.</p>
 
@@ -911,7 +924,7 @@ template&lt;typename SpiType &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00396">396</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00414">414</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
 
 <p class="reference">References <a class="el" href="ads7952__registers_8hpp_source.html#l00031">ads7952::reg::Mode::CONTINUE</a>.</p>
 
@@ -959,7 +972,7 @@ template&lt;typename SpiType &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true on success</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00381">381</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00399">399</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
 
 <p class="reference">References <a class="el" href="ads7952__registers_8hpp_source.html#l00031">ads7952::reg::Mode::CONTINUE</a>.</p>
 
@@ -1011,9 +1024,91 @@ template&lt;typename SpiType &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true on success</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00367">367</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00385">385</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
 
 <p class="reference">References <a class="el" href="ads7952__registers_8hpp_source.html#l00031">ads7952::reg::Mode::CONTINUE</a>, and <a class="el" href="group__ads7952__types.html#gga70a3487be9a660a4a77195cf09dcf4bfad3b8400dadedb976e945f32bda0a4456">ads7952::TwoVref</a>.</p>
+
+</div>
+</div>
+<a id="ga99427d545376463581ecd1c70604232f" name="ga99427d545376463581ecd1c70604232f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga99427d545376463581ecd1c70604232f">&#9670;&#160;</a></span>SetVA()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename SpiType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classads7952_1_1ADS7952.html">ads7952::ADS7952</a>&lt; SpiType &gt;::SetVA </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>va</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Update the VA supply voltage value. </p>
+<p>Use this for runtime calibration when VA is measured (e.g., via resistor divider on an ADC channel). VA is used for validation and ratiometric sensor calculations.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">va</td><td>New VA voltage in volts (clamped to 2.7V–5.5V) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Does not send any SPI commands — purely for software calculations. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00053">53</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
+
+<p class="reference">References <a class="el" href="ads7952__config_8hpp_source.html#l00067">ADS7952_CFG::MAX_VA</a>, and <a class="el" href="ads7952__config_8hpp_source.html#l00066">ADS7952_CFG::MIN_VA</a>.</p>
+
+</div>
+</div>
+<a id="ga3d27a405963f157671348f7a2e20f6af" name="ga3d27a405963f157671348f7a2e20f6af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3d27a405963f157671348f7a2e20f6af">&#9670;&#160;</a></span>SetVref()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename SpiType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classads7952_1_1ADS7952.html">ads7952::ADS7952</a>&lt; SpiType &gt;::SetVref </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>vref</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Update the Vref value for voltage calculations. </p>
+<p>Use this for runtime calibration when Vref is measured externally. Updates both vref_ and two_vref_ (2×Vref) accordingly.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vref</td><td>New Vref voltage in volts (clamped to 1.0V–2.5V) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Does not send any SPI commands — purely for software calculations. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00045">45</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
+
+<p class="reference">References <a class="el" href="ads7952__config_8hpp_source.html#l00065">ADS7952_CFG::MAX_VREF</a>, <a class="el" href="ads7952__config_8hpp_source.html#l00064">ADS7952_CFG::MIN_VREF</a>, and <a class="el" href="group__ads7952__types.html#gga70a3487be9a660a4a77195cf09dcf4bfad3b8400dadedb976e945f32bda0a4456">ads7952::TwoVref</a>.</p>
 
 </div>
 </div>
@@ -1061,7 +1156,7 @@ template&lt;typename SpiType &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>12-bit ADC count (0–4095)</dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00181">181</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ads7952_8ipp_source.html#l00199">199</a> of file <a class="el" href="ads7952_8ipp_source.html">ads7952.ipp</a>.</p>
 
 <p class="reference">References <a class="el" href="ads7952__registers_8hpp_source.html#l00231">ads7952::reg::MAX_COUNT</a>.</p>
 

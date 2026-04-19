@@ -535,7 +535,7 @@ extern "C" void app_main(void) {
 
   // Create and initialize ADS7952 driver
   static ads7952::ADS7952<Esp32Ads7952SpiBus> adc(
-      *g_bus, ADS7952_TestConfig::ADCSpecs::VREF, 5.0f);
+      *g_bus, ADS7952_TestConfig::ADCSpecs::VREF, 5.0f, ads7952::Range::TwoVref);
   g_adc = &adc;
 
   if (!adc.EnsureInitialized()) {

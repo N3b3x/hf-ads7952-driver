@@ -10,6 +10,10 @@ var namespaces_dup =
       [ "DEFAULT_VREF", "group__ads7952__config.html#gab1126e4816450bd31e3ebcae5c1d4db2", null ],
       [ "MAX_COUNT", "group__ads7952__config.html#gab1969f7fd3aa2843d081d0ae9dce91a4", null ],
       [ "MAX_RETRIES", "group__ads7952__config.html#ga8d25cb204be04f943ba3ad31eefe17eb", null ],
+      [ "MAX_VA", "group__ads7952__config.html#gafac5cc55d1febc55e86fe80fa372ebe8", null ],
+      [ "MAX_VREF", "group__ads7952__config.html#gac51914c432ef745636a9387ca3f4cc9c", null ],
+      [ "MIN_VA", "group__ads7952__config.html#ga3bf3d6154347ce8e66cd51e35d976e96", null ],
+      [ "MIN_VREF", "group__ads7952__config.html#gaa17ad799c9ff0e0295ec6847accae463", null ],
       [ "NUM_CHANNELS", "group__ads7952__config.html#gab060c3fccda29b0559f6dbb7ee04718c", null ],
       [ "READ_ALL_MAX_EXTRA_FRAMES", "group__ads7952__config.html#ga5cc568afa184430b37521fcade52ebe0", null ],
       [ "RESOLUTION_BITS", "group__ads7952__config.html#ga394966ac3e20e1810cb023708944a546", null ]

@@ -1,6 +1,6 @@
 var classads7952_1_1ADS7952 =
 [
-    [ "ADS7952", "group__ads7952__core.html#ga338c213ab9d6019acc8738f7fedf9fe2", null ],
+    [ "ADS7952", "group__ads7952__core.html#gafb11d1cacb5ada7d97218760bcf68afb", null ],
     [ "ADS7952", "classads7952_1_1ADS7952.html#af1771d10815830065a1c1f1acfe6db7c", null ],
     [ "CountToVoltage", "group__ads7952__core.html#ga045115ab4d84df3e16fe715c35391eb6", null ],
     [ "CountToVoltage", "classads7952_1_1ADS7952.html#a41d9867ea383fd189340b56b985b54c4", null ],
@@ -16,6 +16,7 @@ var classads7952_1_1ADS7952 =
     [ "GetDriverVersionPatch", "classads7952_1_1ADS7952.html#ae194f37c02d6f2d5f9d3a4075b18fd67", null ],
     [ "GetMode", "classads7952_1_1ADS7952.html#a83c0ffc05f78738bea4bfc5e1ea84c0b", null ],
     [ "GetRange", "classads7952_1_1ADS7952.html#a4dd3dc616f25eb9ccdf9c0112b9d24c1", null ],
+    [ "GetVA", "classads7952_1_1ADS7952.html#aac55b7232461a585d921dc9a698fe7c9", null ],
     [ "GetVref", "classads7952_1_1ADS7952.html#acb190c77a423d862ff4e716890602f3b", null ],
     [ "IsInitialized", "classads7952_1_1ADS7952.html#a09fe495cb38e5e1e608bb3c80353d3d9", null ],
     [ "operator=", "classads7952_1_1ADS7952.html#a0b6d4dd5a95d922f3e2fc2bbccf2773c", null ],
@@ -29,5 +30,7 @@ var classads7952_1_1ADS7952 =
     [ "SetGPIOOutputs", "group__ads7952__core.html#ga572cfee9315e5ff2f43e69f63fef46c4", null ],
     [ "SetPowerDown", "group__ads7952__core.html#ga9c89fbaf1335fb99f8dc08bba0edd2f9", null ],
     [ "SetRange", "group__ads7952__core.html#gaf2b5b3195c028e1cc476e5ffac801b09", null ],
+    [ "SetVA", "group__ads7952__core.html#ga99427d545376463581ecd1c70604232f", null ],
+    [ "SetVref", "group__ads7952__core.html#ga3d27a405963f157671348f7a2e20f6af", null ],
     [ "VoltageToCount", "group__ads7952__core.html#ga99b3f238a59aacfcbd0d95c5d8f04cb6", null ]
 ];

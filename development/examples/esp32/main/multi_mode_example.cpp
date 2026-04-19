@@ -40,7 +40,7 @@ extern "C" void app_main(void) {
   }
 
   ads7952::ADS7952<Esp32Ads7952SpiBus> adc(
-      *bus, ADS7952_TestConfig::ADCSpecs::VREF, 5.0f);
+      *bus, ADS7952_TestConfig::ADCSpecs::VREF, 5.0f, ads7952::Range::TwoVref);
 
   if (!adc.EnsureInitialized()) {
     ESP_LOGE(TAG, "ADS7952 initialization failed");
@@ -152,8 +152,8 @@ extern "C" void app_main(void) {
     adc.SetRange(ads7952::Range::TwoVref);
     auto r_2vref = adc.ReadChannel(0);
 
-    // Restore Vref
-    adc.SetRange(ads7952::Range::Vref);
+    // Restore default full-scale range
+    adc.SetRange(ads7952::Range::TwoVref);
 
     if (r_vref.ok() && r_2vref.ok()) {
       ESP_LOGI(TAG, "  Vref range:  count=%u  voltage=%.3f V",

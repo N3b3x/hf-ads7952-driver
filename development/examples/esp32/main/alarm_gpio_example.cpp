@@ -40,7 +40,7 @@ extern "C" void app_main(void) {
   }
 
   ads7952::ADS7952<Esp32Ads7952SpiBus> adc(
-      *bus, ADS7952_TestConfig::ADCSpecs::VREF, 5.0f);
+      *bus, ADS7952_TestConfig::ADCSpecs::VREF, 5.0f, ads7952::Range::TwoVref);
 
   if (!adc.EnsureInitialized()) {
     ESP_LOGE(TAG, "ADS7952 initialization failed");
