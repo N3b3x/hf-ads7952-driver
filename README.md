@@ -23,8 +23,9 @@ permalink: /
 5. [API Reference](#-api-reference)
 6. [Examples](#-examples)
 7. [Documentation](#-documentation)
-8. [Contributing](#-contributing)
-9. [License](#-license)
+8. [References](#-references)
+9. [Contributing](#-contributing)
+10. [License](#-license)
 
 ## 📦 Overview
 
@@ -174,6 +175,16 @@ Complete documentation is available in the [docs directory](docs/index.md):
 | [💡 Examples](docs/examples.md) | Walkthrough of all 4 example applications |
 | [🐛 Troubleshooting](docs/troubleshooting.md) | Error codes, SPI debugging, common hardware issues |
 | [🔩 CMake Integration](docs/cmake_integration.md) | Build system setup, ESP-IDF component, FetchContent |
+
+## 🔗 References
+
+| Resource | Link |
+|----------|------|
+| TI ADS7952 product page | <https://www.ti.com/product/ADS7952> |
+| TI ADS79xx datasheet (SLAS605C Rev C) | <https://www.ti.com/lit/ds/symlink/ads7952.pdf> |
+| ESP-IDF SPI master | <https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/spi_master.html> |
+| Linux spidev (Kernel docs) | <https://www.kernel.org/doc/html/latest/spi/spidev.html> |
+| C++20 language reference | <https://en.cppreference.com/w/cpp/20> |
 
 ## 🤝 Contributing
 
