@@ -38,6 +38,8 @@ Designed for the **HardFOC-V1** motor controller, it is equally suitable for any
 
 The driver uses a **CRTP-based** `SpiInterface` for hardware abstraction, allowing it to run on any platform (ESP32, STM32, Arduino, Linux spidev, etc.) with **zero runtime overhead**. All SPI frame sequences are datasheet-verified against **TI ADS79xx SLAS605C Rev C**.
 
+![ADS7952 12-channel SAR ADC: Auto-1 sequencing and 16-bit SPI frame layout](docs/assets/ads7952-frame.svg)
+
 ## ✨ Features
 
 - ✅ **12-channel, 12-bit** SAR ADC — up to 1 MSPS sampling rate

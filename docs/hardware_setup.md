@@ -9,6 +9,8 @@ permalink: /docs/hardware_setup/
 
 # 🔌 Hardware Setup
 
+![ADS7952 12-channel SAR ADC: Auto-1 sequencing and 16-bit SPI frame layout](assets/ads7952-frame.svg)
+
 This guide covers the physical connections between the ADS7952 and your microcontroller, power supply requirements, and SPI bus configuration.
 
 ---
