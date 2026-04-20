@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 440" width="780" height="440" role="img" aria-labelledby="t-ads d-ads">
+  <title id="t-ads">ADS7952 software stack &#8212; application to platform layers</title>
+  <desc id="d-ads">Vertical layering diagram showing the ADS7952 driver stack: Application &#8594; Ads7952 driver &#8594; SpiCommInterface &#8594; BaseSpi &#8594; EspSpiDevice, with CRTP and dependency-injection annotations.</desc>
+  <defs>
+    <style type="text/css"><![CDATA[
+      .panel    { fill: #ffffff; }
+      .app      { fill: #f0fff4; stroke: #276749; stroke-width: 2; }
+      .driver   { fill: #fef5e7; stroke: #c05621; stroke-width: 2; }
+      .crtp     { fill: #ebf4ff; stroke: #2c5282; stroke-width: 2; }
+      .base     { fill: #fff5f5; stroke: #c53030; stroke-width: 2; }
+      .platform { fill: #f4f6f8; stroke: #1a365d; stroke-width: 2; }
+      .wire     { stroke: #2c5282; stroke-width: 2.5; fill: none; stroke-linecap: round; }
+      .head     { font-family: system-ui, sans-serif; font-size: 16px; font-weight: 600; fill: #1a365d; text-anchor: middle; }
+      .title    { font-family: system-ui, sans-serif; font-size: 13px; font-weight: 600; fill: #1a365d; text-anchor: middle; }
+      .small    { font-family: system-ui, sans-serif; font-size: 11px; fill: #4a5568; text-anchor: middle; }
+      .smallL   { font-family: system-ui, sans-serif; font-size: 11px; fill: #4a5568; text-anchor: start; }
+      .legend   { font-family: system-ui, sans-serif; font-size: 11px; fill: #4a5568; }
+    ]]></style>
+    <marker id="ar-dn" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 z" fill="#2c5282"/>
+    </marker>
+  </defs>
+  <rect class="panel" width="780" height="440"/>
+
+  <text class="head" x="280" y="24">ADS7952 software stack</text>
+
+  <!-- ===== Layer 1: Application ===== -->
+  <rect class="app" x="80" y="40" width="400" height="52" rx="6"/>
+  <text class="title" x="280" y="62">Application</text>
+  <text class="small" x="280" y="80">Your code: ReadAllChannels(), SetChannelMask()</text>
+
+  <!-- Arrow 1->2 -->
+  <line class="wire" x1="280" y1="92" x2="280" y2="110" marker-end="url(#ar-dn)"/>
+
+  <!-- ===== Layer 2: Ads7952 driver ===== -->
+  <rect class="driver" x="80" y="114" width="400" height="52" rx="6"/>
+  <text class="title" x="280" y="136">Ads7952&#60;SpiComm&#62; &#8212; CRTP template</text>
+  <text class="small" x="280" y="154">Type-parameterised driver; zero virtual dispatch</text>
+
+  <!-- Arrow 2->3 -->
+  <line class="wire" x1="280" y1="166" x2="280" y2="184" marker-end="url(#ar-dn)"/>
+
+  <!-- ===== Layer 3: SpiCommInterface ===== -->
+  <rect class="crtp" x="80" y="188" width="400" height="52" rx="6"/>
+  <text class="title" x="280" y="210">SpiCommInterface (CRTP adapter)</text>
+  <text class="small" x="280" y="228">Bridges Ads7952 to BaseSpi</text>
+
+  <!-- Arrow 3->4 -->
+  <line class="wire" x1="280" y1="240" x2="280" y2="258" marker-end="url(#ar-dn)"/>
+
+  <!-- ===== Layer 4: BaseSpi ===== -->
+  <rect class="base" x="80" y="262" width="400" height="52" rx="6"/>
+  <text class="title" x="280" y="284">BaseSpi</text>
+  <text class="small" x="280" y="302">Pure-virtual contract (hardware-agnostic)</text>
+
+  <!-- Arrow 4->5 -->
+  <line class="wire" x1="280" y1="314" x2="280" y2="332" marker-end="url(#ar-dn)"/>
+
+  <!-- ===== Layer 5: EspSpiDevice ===== -->
+  <rect class="platform" x="80" y="336" width="400" height="52" rx="6"/>
+  <text class="title" x="280" y="358">EspSpiDevice</text>
+  <text class="small" x="280" y="376">ESP-IDF spi_device_handle_t (vendor SDK)</text>
+
+  <!-- ===== Right-side annotations ===== -->
+  <g>
+    <!-- Bracket for layers 2-3: Zero-virtual dispatch (CRTP) -->
+    <path d="M500,126 L520,126 L520,226 L500,226" class="wire" stroke-width="1.5"/>
+    <text class="smallL" x="528" y="180">Zero-virtual dispatch (CRTP)</text>
+
+    <!-- Bracket for layers 3-4: Dependency injection -->
+    <path d="M500,200 L540,200 L540,300 L500,300" class="wire" stroke-width="1.5" stroke="#c05621"/>
+    <text class="smallL" x="548" y="254">Dependency injection</text>
+
+    <!-- Bracket for layers 4-5: Platform layer -->
+    <path d="M500,274 L560,274 L560,374 L500,374" class="wire" stroke-width="1.5" stroke="#c53030"/>
+    <text class="smallL" x="568" y="328">Platform layer</text>
+  </g>
+
+  <!-- ===== Pipeline note at bottom ===== -->
+  <g transform="translate(80, 404)">
+    <rect x="0" y="0" width="620" height="28" rx="4" fill="#edf2f7" stroke="#a0aec0" stroke-width="1"/>
+    <text class="smallL" x="10" y="18" fill="#2d3748">Auto-1 sequencing: MOSI writes next-conversion command while MISO reads previous result (full-duplex)</text>
+  </g>
+
+  <!-- ===== Legend ===== -->
+  <g transform="translate(80, 398)">
+  </g>
+</svg>

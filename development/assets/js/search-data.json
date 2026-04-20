@@ -757,7 +757,7 @@
   },"108": {
     "doc": "🔌 Hardware Setup",
     "title": "Typical Schematic",
-    "content": "| 1 2 3 4 5 6 7 8 9 10 11 12 13 14 . | ┌──────────────┐ MOSI ───────┤ SDI AVDD ├──── 5.0V + 100nF ∥ 10µF MISO ───────┤ SDO DVDD ├──── 3.3V + 100nF SCLK ───────┤ SCLK AGND ├──── GND CS ───────┤ CS̄ DGND ├──── GND │ │ Analog 0 ──────┤ CH0 REFP ├──── 2.5V ref + 100nF ∥ 10µF Analog 1 ──────┤ CH1 REFM ├──── GND ... │ ... │ Analog 11 ─────┤ CH11 GPIO0 ├──── (optional) │ GPIO1 ├──── (optional) │ GPIO2 ├──── (optional) │ GPIO3 ├──── (optional) └──────────────┘ . | . Navigation ⬅️ Quick Start ➡️ Platform Integration . ",
+    "content": ". | 1 2 3 4 5 6 7 8 9 10 11 12 13 14 . | ┌──────────────┐ MOSI ───────┤ SDI AVDD ├──── 5.0V + 100nF ∥ 10µF MISO ───────┤ SDO DVDD ├──── 3.3V + 100nF SCLK ───────┤ SCLK AGND ├──── GND CS ───────┤ CS̄ DGND ├──── GND │ │ Analog 0 ──────┤ CH0 REFP ├──── 2.5V ref + 100nF ∥ 10µF Analog 1 ──────┤ CH1 REFM ├──── GND ... │ ... │ Analog 11 ─────┤ CH11 GPIO0 ├──── (optional) │ GPIO1 ├──── (optional) │ GPIO2 ├──── (optional) │ GPIO3 ├──── (optional) └──────────────┘ . | . Navigation ⬅️ Quick Start ➡️ Platform Integration . ",
     "url": "/hf-ads7952/development/docs/hardware_setup/#typical-schematic",
     
     "relUrl": "/docs/hardware_setup/#typical-schematic"
@@ -904,7 +904,7 @@
   },"129": {
     "doc": "🔧 Platform Integration",
     "title": "Architecture",
-    "content": "| 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 . | ┌──────────────────────────────────────┐ │ ADS7952&lt;SpiType&gt; │ ← Driver (platform-agnostic) │ - ReadChannel() │ │ - ReadAllChannels() │ │ - ProgramAlarm() / ProgramGPIO() │ │ - spiTransfer16() │ └──────────────┬───────────────────────┘ │ calls transfer() ┌──────────────▼───────────────────────┐ │ SpiInterface&lt;Derived&gt; │ ← CRTP Base (ads7952_spi_interface.hpp) │ - transfer(tx, rx, len) │ └──────────────┬───────────────────────┘ │ static dispatch (compile-time) ┌──────────────▼───────────────────────┐ │ YourPlatformSpi │ ← Your Implementation │ - transfer(tx, rx, len) │ └──────────────────────────────────────┘ . | . The CRTP pattern provides compile-time polymorphism — no virtual function overhead, no vtable, and the compiler can fully inline the SPI calls into the driver methods. ",
+    "content": ". | 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 . | ┌──────────────────────────────────────┐ │ ADS7952&lt;SpiType&gt; │ ← Driver (platform-agnostic) │ - ReadChannel() │ │ - ReadAllChannels() │ │ - ProgramAlarm() / ProgramGPIO() │ │ - spiTransfer16() │ └──────────────┬───────────────────────┘ │ calls transfer() ┌──────────────▼───────────────────────┐ │ SpiInterface&lt;Derived&gt; │ ← CRTP Base (ads7952_spi_interface.hpp) │ - transfer(tx, rx, len) │ └──────────────┬───────────────────────┘ │ static dispatch (compile-time) ┌──────────────▼───────────────────────┐ │ YourPlatformSpi │ ← Your Implementation │ - transfer(tx, rx, len) │ └──────────────────────────────────────┘ . | . The CRTP pattern provides compile-time polymorphism — no virtual function overhead, no vtable, and the compiler can fully inline the SPI calls into the driver methods. ",
     "url": "/hf-ads7952/development/docs/platform_integration/#architecture",
     
     "relUrl": "/docs/platform_integration/#architecture"

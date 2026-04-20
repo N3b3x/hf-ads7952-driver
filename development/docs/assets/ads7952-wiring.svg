@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 500" width="920" height="500" role="img" aria-labelledby="t-wire d-wire">
+  <title id="t-wire">ADS7952 typical wiring diagram (12-ch 12-bit SAR ADC)</title>
+  <desc id="d-wire">Wiring and pinout diagram showing MCU SPI connections, power supply decoupling, analog inputs CH0-CH11, and GPIO0-GPIO3 for the ADS7952.</desc>
+  <defs>
+    <style type="text/css"><![CDATA[
+      .panel    { fill: #ffffff; }
+      .box      { fill: #f4f6f8; stroke: #1a365d; stroke-width: 2; }
+      .chip     { fill: #fef5e7; stroke: #c05621; stroke-width: 2; }
+      .wire-pwr { stroke: #c53030; stroke-width: 2.5; fill: none; stroke-linecap: round; }
+      .wire-gnd { stroke: #4a5568; stroke-width: 2.5; fill: none; stroke-linecap: round; }
+      .wire-spi { stroke: #2b6cb0; stroke-width: 2.5; fill: none; stroke-linecap: round; }
+      .wire-sig { stroke: #276749; stroke-width: 2; fill: none; stroke-linecap: round; stroke-dasharray: 4 2; }
+      .head     { font-family: system-ui, sans-serif; font-size: 16px; font-weight: 600; fill: #1a365d; text-anchor: middle; }
+      .title    { font-family: system-ui, sans-serif; font-size: 13px; font-weight: 600; fill: #1a365d; text-anchor: middle; }
+      .titleL   { font-family: system-ui, sans-serif; font-size: 13px; font-weight: 600; fill: #1a365d; text-anchor: start; }
+      .small    { font-family: system-ui, sans-serif; font-size: 11px; fill: #4a5568; text-anchor: middle; }
+      .smallL   { font-family: system-ui, sans-serif; font-size: 11px; fill: #4a5568; text-anchor: start; }
+      .pinL     { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: 11px; fill: #1a202c; text-anchor: start; }
+      .pinR     { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: 11px; fill: #1a202c; text-anchor: end; }
+      .legend   { font-family: system-ui, sans-serif; font-size: 11px; fill: #4a5568; }
+    ]]></style>
+    <marker id="ar-spi" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#2b6cb0"/>
+    </marker>
+    <marker id="ar-pwr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#c53030"/>
+    </marker>
+    <marker id="ar-gnd" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#4a5568"/>
+    </marker>
+  </defs>
+  <rect class="panel" width="920" height="500"/>
+
+  <!-- Title -->
+  <text class="head" x="460" y="24">ADS7952 &#8212; typical wiring (12-ch 12-bit SAR ADC)</text>
+
+  <!-- ================================================================ -->
+  <!-- SUPPLY DECOUPLING BOXES (top row, y 38..70)                      -->
+  <!--   AVDD box centred at x=138   DVDD at x=268   REFP at x=520     -->
+  <!-- ================================================================ -->
+  <rect class="box" x="90" y="38" width="96" height="32" rx="3"/>
+  <text class="smallL" x="98" y="52">5.0 V (AVDD)</text>
+  <text class="smallL" x="98" y="64">100 nF &#8214; 10 &#181;F</text>
+
+  <rect class="box" x="220" y="38" width="90" height="32" rx="3"/>
+  <text class="smallL" x="228" y="52">3.3 V (DVDD)</text>
+  <text class="smallL" x="228" y="64">100 nF</text>
+
+  <rect class="box" x="472" y="38" width="104" height="32" rx="3"/>
+  <text class="smallL" x="480" y="52">2.5 V ref (REFP)</text>
+  <text class="smallL" x="480" y="64">100 nF &#8214; 10 &#181;F</text>
+
+  <!-- ================================================================ -->
+  <!-- MCU SPI BOX (left, y 180..320)                                   -->
+  <!-- ================================================================ -->
+  <rect class="box" x="30" y="180" width="160" height="140" rx="6"/>
+  <text class="title" x="110" y="200">MCU SPI Master</text>
+  <text class="pinL" x="50" y="224">MOSI / SDI</text>
+  <text class="pinL" x="50" y="244">MISO / SDO</text>
+  <text class="pinL" x="50" y="264">SCLK</text>
+  <text class="pinL" x="50" y="284">CS</text>
+  <text class="smallL" x="50" y="308">Mode 0, 16-bit frames</text>
+
+  <!-- ================================================================ -->
+  <!-- ADS7952 IC  (chip body x 340..590, y 86..436)                    -->
+  <!-- ================================================================ -->
+  <rect class="chip" x="340" y="86" width="250" height="350" rx="10"/>
+  <text class="head" x="465" y="108">ADS7952</text>
+  <text class="small" x="465" y="124">12-ch &#183; 12-bit SAR ADC</text>
+
+  <!-- Left pins: SPI (y 164..236) -->
+  <text class="pinL" x="352" y="168">SDI</text>
+  <text class="pinL" x="352" y="192">SDO</text>
+  <text class="pinL" x="352" y="216">SCLK</text>
+  <text class="pinL" x="352" y="240">CS&#772;</text>
+
+  <!-- Left pins: supply / reference (y 268..332) -->
+  <text class="pinL" x="352" y="272">AVDD</text>
+  <text class="pinL" x="352" y="292">DVDD</text>
+  <text class="pinL" x="352" y="312">REFP</text>
+  <text class="pinL" x="352" y="332">REFM</text>
+
+  <!-- Left pins: ground (y 360..384) -->
+  <text class="pinL" x="352" y="364">AGND</text>
+  <text class="pinL" x="352" y="384">DGND</text>
+
+  <!-- Right pins: CH0..CH11 (y 146..322, 16 px spacing) -->
+  <text class="pinR" x="580" y="146">CH0</text>
+  <text class="pinR" x="580" y="162">CH1</text>
+  <text class="pinR" x="580" y="178">CH2</text>
+  <text class="pinR" x="580" y="194">CH3</text>
+  <text class="pinR" x="580" y="210">CH4</text>
+  <text class="pinR" x="580" y="226">CH5</text>
+  <text class="pinR" x="580" y="242">CH6</text>
+  <text class="pinR" x="580" y="258">CH7</text>
+  <text class="pinR" x="580" y="274">CH8</text>
+  <text class="pinR" x="580" y="290">CH9</text>
+  <text class="pinR" x="580" y="306">CH10</text>
+  <text class="pinR" x="580" y="322">CH11</text>
+
+  <!-- Right pins: GPIO0..GPIO3 (y 354..402) -->
+  <text class="pinR" x="580" y="354">GPIO0</text>
+  <text class="pinR" x="580" y="370">GPIO1</text>
+  <text class="pinR" x="580" y="386">GPIO2</text>
+  <text class="pinR" x="580" y="402">GPIO3</text>
+
+  <!-- ================================================================ -->
+  <!-- SPI WIRES: MCU (right edge x=190) to IC (left edge x=340)        -->
+  <!-- Routed via staggered vertical segments to avoid overlap           -->
+  <!-- ================================================================ -->
+  <!-- MOSI: MCU y=220 -> via x=250 up to IC SDI y=164 -->
+  <polyline class="wire-spi" points="190,220 250,220 250,164 340,164" marker-end="url(#ar-spi)"/>
+  <!-- MISO: IC SDO y=188 -> via x=260 down to MCU y=240 (no arrow, data flows left) -->
+  <polyline class="wire-spi" points="340,188 260,188 260,240 190,240"/>
+  <!-- SCLK: MCU y=260 -> via x=270 up to IC SCLK y=212 -->
+  <polyline class="wire-spi" points="190,260 270,260 270,212 340,212" marker-end="url(#ar-spi)"/>
+  <!-- CS: MCU y=280 -> via x=280 up to IC CS y=236 -->
+  <polyline class="wire-spi" points="190,280 280,280 280,236 340,236" marker-end="url(#ar-spi)"/>
+
+  <!-- SPI wire labels (between MCU and IC) -->
+  <text class="smallL" x="218" y="216">MOSI</text>
+  <text class="smallL" x="218" y="236">MISO</text>
+  <text class="smallL" x="218" y="256">SCLK</text>
+  <text class="smallL" x="218" y="276">CS&#772;</text>
+
+  <!-- ================================================================ -->
+  <!-- POWER WIRES: supply boxes (bottom y=70) down to IC left pins      -->
+  <!--   Each runs vertically then turns right into the chip edge.       -->
+  <!--   x offsets staggered: AVDD x=138, DVDD x=265, REFP x=524       -->
+  <!-- ================================================================ -->
+  <!-- AVDD: x=138 down from box bottom to y=268, then right to chip -->
+  <polyline class="wire-pwr" points="138,70 138,268 340,268" marker-end="url(#ar-pwr)"/>
+
+  <!-- DVDD: x=265 down from box bottom to y=288, then right to chip -->
+  <polyline class="wire-pwr" points="265,70 265,288 340,288" marker-end="url(#ar-pwr)"/>
+
+  <!-- REFP: x=524 down from box bottom to y=86 (chip top), inside chip to y=308 -->
+  <polyline class="wire-pwr" points="524,70 524,308 590,308"/>
+  <line class="wire-pwr" x1="590" y1="308" x2="580" y2="308"/>
+
+  <!-- ================================================================ -->
+  <!-- GROUND WIRES                                                      -->
+  <!-- ================================================================ -->
+  <!-- GND plane bar at bottom -->
+  <rect class="box" x="240" y="444" width="350" height="24" rx="4"/>
+  <text class="small" x="415" y="460">GND plane</text>
+
+  <!-- AGND: from pin y=360 down to GND bar -->
+  <line class="wire-gnd" x1="380" y1="398" x2="380" y2="444" marker-end="url(#ar-gnd)"/>
+
+  <!-- DGND: from pin y=380 down to GND bar -->
+  <line class="wire-gnd" x1="460" y1="398" x2="460" y2="444" marker-end="url(#ar-gnd)"/>
+
+  <!-- REFM: from pin y=328 left, down, then into GND bar -->
+  <polyline class="wire-gnd" points="340,328 300,328 300,444" marker-end="url(#ar-gnd)"/>
+  <text class="smallL" x="302" y="432">REFM</text>
+
+  <!-- ================================================================ -->
+  <!-- ANALOG INPUT WIRES (right side, dashed green)                     -->
+  <!-- ================================================================ -->
+  <line class="wire-sig" x1="590" y1="142" x2="698" y2="142"/>
+  <line class="wire-sig" x1="590" y1="158" x2="698" y2="158"/>
+  <line class="wire-sig" x1="590" y1="174" x2="698" y2="174"/>
+  <line class="wire-sig" x1="590" y1="190" x2="698" y2="190"/>
+  <line class="wire-sig" x1="590" y1="206" x2="698" y2="206"/>
+  <line class="wire-sig" x1="590" y1="222" x2="698" y2="222"/>
+  <line class="wire-sig" x1="590" y1="238" x2="698" y2="238"/>
+  <line class="wire-sig" x1="590" y1="254" x2="698" y2="254"/>
+  <line class="wire-sig" x1="590" y1="270" x2="698" y2="270"/>
+  <line class="wire-sig" x1="590" y1="286" x2="698" y2="286"/>
+  <line class="wire-sig" x1="590" y1="302" x2="698" y2="302"/>
+  <line class="wire-sig" x1="590" y1="318" x2="698" y2="318"/>
+
+  <!-- External Analog Signals info box -->
+  <rect class="box" x="698" y="130" width="198" height="200" rx="6"/>
+  <text class="title" x="797" y="150">External Analog Signals</text>
+  <text class="smallL" x="710" y="168">0 &#8594; REFP (x1) or 2&#215;REFP (x2)</text>
+  <text class="smallL" x="710" y="184">12 single-ended inputs</text>
+  <text class="smallL" x="710" y="200">Vin &#8804; AVDD + 0.3 V</text>
+  <text class="smallL" x="710" y="226">Use series R (100 &#8486;) +</text>
+  <text class="smallL" x="710" y="240">filter C at each input for</text>
+  <text class="smallL" x="710" y="254">anti-aliasing.</text>
+  <text class="smallL" x="710" y="280">Clamp diodes recommended</text>
+  <text class="smallL" x="710" y="294">if source can exceed</text>
+  <text class="smallL" x="710" y="308">AGND &#8722; 0.3 V .. AVDD + 0.3 V</text>
+
+  <!-- GPIO lines (right side, lower) -->
+  <line class="wire-sig" x1="590" y1="350" x2="698" y2="350"/>
+  <line class="wire-sig" x1="590" y1="366" x2="698" y2="366"/>
+  <line class="wire-sig" x1="590" y1="382" x2="698" y2="382"/>
+  <line class="wire-sig" x1="590" y1="398" x2="698" y2="398"/>
+
+  <!-- GPIO info box -->
+  <rect class="box" x="698" y="340" width="198" height="68" rx="6"/>
+  <text class="title" x="797" y="358">GPIO / Alarm</text>
+  <text class="smallL" x="710" y="376">4 configurable pins</text>
+  <text class="smallL" x="710" y="390">I/O, alarm, ext range/PD</text>
+
+  <!-- ================================================================ -->
+  <!-- LEGEND (bottom row)                                               -->
+  <!-- ================================================================ -->
+  <g transform="translate(30, 486)">
+    <text class="titleL" x="0" y="0">Legend</text>
+    <line class="wire-spi" x1="60"  y1="-4" x2="84"  y2="-4"/>
+    <text class="legend" x="90" y="0">SPI</text>
+    <line class="wire-pwr" x1="130" y1="-4" x2="154" y2="-4"/>
+    <text class="legend" x="160" y="0">Power</text>
+    <line class="wire-gnd" x1="210" y1="-4" x2="234" y2="-4"/>
+    <text class="legend" x="240" y="0">Ground</text>
+    <line class="wire-sig" x1="310" y1="-4" x2="334" y2="-4"/>
+    <text class="legend" x="340" y="0">Analog / signal</text>
+    <rect class="chip" x="450" y="-10" width="14" height="14" rx="2"/>
+    <text class="legend" x="470" y="0">ADS7952 IC</text>
+    <rect class="box"  x="560" y="-10" width="14" height="14" rx="2"/>
+    <text class="legend" x="580" y="0">MCU / supply / notes</text>
+  </g>
+</svg>
