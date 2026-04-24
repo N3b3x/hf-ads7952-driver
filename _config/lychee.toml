@@ -49,4 +49,7 @@ exclude = [
   '^https://img\.shields\.io/badge/License-GPLv3-blue\.svg$',
   '^https?://(www\.)?gnu\.org/licenses/.*',
   '^https?://img\.shields\.io/badge/License-.*',
+
+  # Manufacturer / IC vendor documentation URLs (frequently block automated crawlers)
+  '^https?://(www\.)?ti\.com/',
 ]
