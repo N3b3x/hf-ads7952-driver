@@ -15,7 +15,7 @@
   },"2": {
     "doc": "HardFOC ADS7952 Driver",
     "title": "📦 Overview",
-    "content": "📖 📚🌐 Live Complete Documentation — Interactive guides, examples, and step-by-step tutorials . HF-ADS7952 is a portable C++20 driver for the ADS7952 12-channel, 12-bit SAR ADC from Texas Instruments. It delivers up to 1 MSPS conversion rates over a 16-bit full-duplex SPI interface with support for manual channel selection, two auto-sequencing modes, configurable input range (Vref / 2×Vref), per-channel alarm thresholds, 4 GPIO pins with alarm routing, and power-down control. Designed for the HardFOC-V1 motor controller, it is equally suitable for any application requiring fast multi-channel ADC sampling — motor current sensing, temperature monitoring, battery management, or general-purpose data acquisition. The driver uses a CRTP-based SpiInterface for hardware abstraction, allowing it to run on any platform (ESP32, STM32, Arduino, Linux spidev, etc.) with zero runtime overhead. All SPI frame sequences are datasheet-verified against TI ADS79xx SLAS605C Rev C. ",
+    "content": "📖 📚🌐 Live Complete Documentation — Interactive guides, examples, and step-by-step tutorials . HF-ADS7952 is a portable C++20 driver for the ADS7952 12-channel, 12-bit SAR ADC from Texas Instruments. It delivers up to 1 MSPS conversion rates over a 16-bit full-duplex SPI interface with support for manual channel selection, two auto-sequencing modes, configurable input range (Vref / 2×Vref), per-channel alarm thresholds, 4 GPIO pins with alarm routing, and power-down control. Suitable for any host that needs fast multi-channel ADC sampling — motor current sensing, temperature monitoring, battery management, or general-purpose data acquisition. The driver uses a CRTP-based SpiInterface for hardware abstraction, allowing it to run on any platform (ESP32, STM32, Arduino, Linux spidev, etc.) with zero runtime overhead. All SPI frame sequences are datasheet-verified against TI ADS79xx SLAS605C Rev C. ",
     "url": "/hf-ads7952/development/#-overview",
     
     "relUrl": "/#-overview"
@@ -679,11 +679,11 @@
     "relUrl": "/docs/hardware_setup/#spi-connection"
   },"97": {
     "doc": "🔌 Hardware Setup",
-    "title": "ESP32-S3 Wiring (HardFOC-V1)",
-    "content": "| ADS7952 Pin | ESP32-S3 Pin | Signal | . | SCLK | GPIO 12 | SPI Clock | . | SDI (DIN) | GPIO 11 | MOSI | . | SDO (DOUT) | GPIO 13 | MISO | . | CS̄ | GPIO 10 | Chip Select | . | DVDD | 3.3 V | Digital power | . | DGND | GND | Digital ground | . ⚠️ Pin assignments are project-specific. The above match the HardFOC-V1 board configuration. Edit esp32_ads7952_test_config.hpp to match your hardware. ",
-    "url": "/hf-ads7952/development/docs/hardware_setup/#esp32-s3-wiring-hardfoc-v1",
+    "title": "Example ESP32-S3 wiring",
+    "content": "| ADS7952 Pin | ESP32-S3 Pin | Signal | . | SCLK | GPIO 12 | SPI Clock | . | SDI (DIN) | GPIO 11 | MOSI | . | SDO (DOUT) | GPIO 13 | MISO | . | CS̄ | GPIO 10 | Chip Select | . | DVDD | 3.3 V | Digital power | . | DGND | GND | Digital ground | . Pin assignments are host-specific. Edit esp32_ads7952_test_config.hpp to match your hardware. ",
+    "url": "/hf-ads7952/development/docs/hardware_setup/#example-esp32-s3-wiring",
     
-    "relUrl": "/docs/hardware_setup/#esp32-s3-wiring-hardfoc-v1"
+    "relUrl": "/docs/hardware_setup/#example-esp32-s3-wiring"
   },"98": {
     "doc": "🔌 Hardware Setup",
     "title": "Generic ESP32 Wiring",
