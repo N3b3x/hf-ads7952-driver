@@ -38,7 +38,7 @@ The ADS7952 comes in a 32-pin TQFP package. Key pins for driver operation:
 
 ## SPI Connection
 
-### ESP32-S3 Wiring (HardFOC-V1)
+### Example ESP32-S3 wiring
 
 | ADS7952 Pin | ESP32-S3 Pin | Signal |
 |-------------|-------------|--------|
@@ -49,8 +49,7 @@ The ADS7952 comes in a 32-pin TQFP package. Key pins for driver operation:
 | DVDD | 3.3 V | Digital power |
 | DGND | GND | Digital ground |
 
-> ⚠️ Pin assignments are project-specific. The above match the HardFOC-V1 board configuration.
-> Edit `esp32_ads7952_test_config.hpp` to match your hardware.
+> Pin assignments are host-specific. Edit `esp32_ads7952_test_config.hpp` to match your hardware.
 
 ### Generic ESP32 Wiring
 

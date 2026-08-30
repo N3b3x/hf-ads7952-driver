@@ -34,7 +34,7 @@ permalink: /
 
 **HF-ADS7952** is a portable C++20 driver for the **ADS7952** 12-channel, 12-bit SAR ADC from Texas Instruments. It delivers up to 1 MSPS conversion rates over a 16-bit full-duplex SPI interface with support for manual channel selection, two auto-sequencing modes, configurable input range (Vref / 2×Vref), per-channel alarm thresholds, 4 GPIO pins with alarm routing, and power-down control.
 
-Designed for the **HardFOC-V1** motor controller, it is equally suitable for any application requiring fast multi-channel ADC sampling — motor current sensing, temperature monitoring, battery management, or general-purpose data acquisition.
+Suitable for any host that needs fast multi-channel ADC sampling — motor current sensing, temperature monitoring, battery management, or general-purpose data acquisition.
 
 The driver uses a **CRTP-based** `SpiInterface` for hardware abstraction, allowing it to run on any platform (ESP32, STM32, Arduino, Linux spidev, etc.) with **zero runtime overhead**. All SPI frame sequences are datasheet-verified against **TI ADS79xx SLAS605C Rev C**.
 
