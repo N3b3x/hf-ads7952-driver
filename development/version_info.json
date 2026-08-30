@@ -1,8 +1,8 @@
 {
   "version": "development",
   "type": "development",
-  "deployed_at": "2026-04-24T20:29:00Z",
-  "commit": "c3a510f2912a3ad249aa2656c07e0976b2fde499",
+  "deployed_at": "2026-08-30T19:24:18Z",
+  "commit": "0b372cb766769777ced56751cee69884d7a716b5",
   "ref": "refs/heads/main",
   "doxygen_version": "0.1.0-dev"
 }
