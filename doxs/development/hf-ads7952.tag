@@ -359,6 +359,13 @@
       <anchor>ad6bde8535d55077a715dec9c7a793238</anchor>
       <arglist>() const noexcept</arglist>
     </member>
+    <member kind="function">
+      <type>uint8_t</type>
+      <name>RawManualFrames</name>
+      <anchorfile>group__ads7952__core.html</anchorfile>
+      <anchor>ga48db1eefb8b26fbcbacdb29fe281866d</anchor>
+      <arglist>(uint8_t channel, uint16_t *out, uint8_t n) noexcept</arglist>
+    </member>
     <member kind="function" static="yes">
       <type>static constexpr float</type>
       <name>CountToVoltage</name>
@@ -1364,6 +1371,13 @@
     </member>
     <member kind="variable">
       <type>constexpr uint8_t</type>
+      <name>MANUAL_READ_MAX_FRAMES</name>
+      <anchorfile>group__ads7952__config.html</anchorfile>
+      <anchor>gad6ca67d0a45292ddcc80f421ac755c33</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr uint8_t</type>
       <name>MAX_RETRIES</name>
       <anchorfile>group__ads7952__config.html</anchorfile>
       <anchor>ga8d25cb204be04f943ba3ad31eefe17eb</anchor>
@@ -1521,6 +1535,13 @@
       <anchor>ga572cfee9315e5ff2f43e69f63fef46c4</anchor>
       <arglist>(uint8_t gpio_state) noexcept</arglist>
     </member>
+    <member kind="function">
+      <type>uint8_t</type>
+      <name>ads7952::ADS7952::RawManualFrames</name>
+      <anchorfile>group__ads7952__core.html</anchorfile>
+      <anchor>ga48db1eefb8b26fbcbacdb29fe281866d</anchor>
+      <arglist>(uint8_t channel, uint16_t *out, uint8_t n) noexcept</arglist>
+    </member>
   </compound>
   <compound kind="group">
     <name>ads7952_config</name>
@@ -1622,6 +1643,13 @@
       <name>ADS7952_CFG::READ_ALL_MAX_EXTRA_FRAMES</name>
       <anchorfile>group__ads7952__config.html</anchorfile>
       <anchor>ga5cc568afa184430b37521fcade52ebe0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr uint8_t</type>
+      <name>ADS7952_CFG::MANUAL_READ_MAX_FRAMES</name>
+      <anchorfile>group__ads7952__config.html</anchorfile>
+      <anchor>gad6ca67d0a45292ddcc80f421ac755c33</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
