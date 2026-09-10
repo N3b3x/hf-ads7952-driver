@@ -386,6 +386,26 @@ public:
   uint8_t GetAuto2LastChannel() const noexcept { return auto2_last_ch_; }
 
   // ===========================================================================
+  // Raw frame trace (bring-up)
+  // ===========================================================================
+  /**
+   * @brief Clock raw 16-bit frames and return every response word unparsed.
+   *
+   * Frame 0 is a MANUAL select of @p channel with the driver's range /
+   * power / GPIO bits; frames 1..n-1 are CONTINUE. Each returned word is
+   * the full DO15:0 (channel address in the top nibble, 12-bit result
+   * below), so a bench can see whether the address pipeline advances and
+   * whether the data field follows it — the two halves of "every channel
+   * reads the same count". Leaves the device in Manual mode.
+   *
+   * @param channel Channel to select in frame 0 (0-11).
+   * @param out     Destination for @p n response words.
+   * @param n       Number of frames (including the select frame).
+   * @return Number of words written (0 if not initialized / bad channel).
+   */
+  uint8_t RawManualFrames(uint8_t channel, uint16_t* out, uint8_t n) noexcept;
+
+  // ===========================================================================
   // Version
   // ===========================================================================
   /** @brief Driver semantic major version. */

@@ -101,14 +101,33 @@ if (!result.ok()) {
 
 ### Channel address in response doesn't match request
 
-This is normal. The ADS7952 uses a **pipelined** SPI protocol: the response to frame N contains the conversion result triggered by frame N-1.
+This is normal. The ADS7952 uses a **pipelined** SPI protocol: a channel
+selected in frame N is sampled on the CS edge that opens frame N+2, so its
+conversion result is returned in frame **N+2** (SLAS605C Figure 51). Frame
+N+1 still returns the channel selected two frames earlier.
 
-The driver handles this internally with a two-frame sequence:
-
-1. **Frame 1:** Sends command for channel X → receives stale/previous data (discarded)
-2. **Frame 2:** Sends NOP → receives the actual channel X result
+The driver keys every result on the DO15:12 channel address and clocks
+CONTINUE frames until the requested address appears (bounded by
+`ADS7952_CFG::MANUAL_READ_MAX_FRAMES`).
 
 If you are using raw SPI (bypassing the driver), you must handle this pipeline yourself.
+
+### Every channel returns the same count
+
+Look at the raw words before touching spans or clocks. Two very different
+faults print the same converted bank:
+
+| DO15:12 (address) | DO11:0 (data) | Meaning |
+|---|---|---|
+| advances 0..11 | identical | Digital side fine; sample-and-hold never charged to the new channel. Acquisition runs from the 14th SCLK rising edge to the next CS falling edge, so lower SCLK / widen the CS gap / check source impedance. |
+| **stuck** (never equals the selected channel) | identical | The device is not receiving SDI (or is unpowered). A manual select of CH11 must come back with address 11 by frame N+2. If it never does, MISO is returning a pattern that is not this device's — check the SDI wire, the board rails, then MISO. |
+
+The old two-frame `ReadChannel` did not check the address and would report
+the stuck word as every channel; the driver now keys on the address and
+returns `Error::Timeout` instead. Seen 2026-09-09 on a Portenta Mid +
+Moonshine sensor board: every frame `0x0E83` with address 0 regardless of the
+channel selected, and the AT25040 on the same SDI returned a different
+"identity" on every read — a dead SDI/harness, not a driver or SCLK-rate fault.
 
 ---
 

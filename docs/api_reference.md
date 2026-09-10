@@ -83,10 +83,16 @@ Returns `true` if the driver has been successfully initialized.
 ReadResult ReadChannel(uint8_t channel) noexcept;
 ```
 
-Read a single ADC channel. Internally switches to Manual mode and executes a 2-frame SPI pipeline:
+Read a single ADC channel. Internally switches to Manual mode and clocks the
+SLAS605C Figure 51 pipeline until the response carries the requested channel:
 
-1. **Frame 1:** MANUAL mode + channel select → triggers conversion (response discarded)
-2. **Frame 2:** CONTINUE → response contains the target channel's data
+1. **Frame N:** MANUAL mode + channel select → response is stale (discarded)
+2. **Frame N+1:** CONTINUE → still the channel selected two frames earlier (discarded)
+3. **Frame N+2:** CONTINUE → DO15:12 equals the requested channel → result
+
+The driver keys on the 4-bit channel address in DO15:12, not on frame
+position; it gives up with `Error::Timeout` after
+`ADS7952_CFG::MANUAL_READ_MAX_FRAMES` CONTINUE frames.
 
 | Parameter | Type | Range | Description |
 |-----------|------|-------|-------------|

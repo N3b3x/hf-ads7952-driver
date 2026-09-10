@@ -8,11 +8,25 @@
  * sequences. Each operation sends the required frames inline and returns
  * success/failure — no internal state machine.
  *
- * SPI Pipeline Model (ADS7952 datasheet SLAS605C):
- *   The response to frame N contains the conversion result triggered by
- *   frame N-1. For a single manual read we therefore need two transfers:
- *     Frame 1:  MANUAL | channel  → discard stale response
- *     Frame 2:  CONTINUE          → contains channel N data
+ * SPI Pipeline Model (ADS7952 datasheet SLAS605C, Figure 51):
+ *   A channel written in frame N is parsed at the CS rising edge that ends
+ *   frame N, the MUX switches on the 2nd SCLK of frame N+1, the input is
+ *   acquired during frame N+1 and sampled on the CS falling edge that opens
+ *   frame N+2. The conversion for that channel is therefore clocked out in
+ *   frame N+2. Frame N+1 still returns the channel that was selected two
+ *   frames earlier. Every response carries its own 4-bit channel address in
+ *   DO15:12; results are keyed on that address, never on frame position:
+ *     Frame N:    MANUAL | channel  → stale (discard)
+ *     Frame N+1:  CONTINUE          → previous channel (discard)
+ *     Frame N+2:  CONTINUE          → DO15:12 == channel → result
+ *   Auto-1 / Auto-2 follow the same N+2 rule for the first channel of a
+ *   sequence; ReadAllChannels keys on the address for the same reason.
+ *
+ *   Acquisition is clocked by SCLK (14th rising edge → next CS falling
+ *   edge), so the SCLK rate and the CS gap set how long the hold cap has
+ *   to settle to the new channel. Run the bus at the rate the front end
+ *   was characterised at (Airseal / Moonshine: 1 MHz) and keep the 16
+ *   clocks of one frame contiguous.
  */
 #pragma once
 
@@ -112,21 +126,36 @@ ReadResult ADS7952<SpiType>::ReadChannel(uint8_t channel) noexcept {
 
   const uint16_t ctrl = commonControlBits();
 
-  // Frame 1: MANUAL mode with target channel — triggers conversion,
-  //          response contains stale data from previous operation.
+  // Frame N: MANUAL mode with the target channel. SLAS605C Figure 51: the
+  // command written in frame N is parsed on the rising edge of CS ending
+  // frame N, the MUX switches on the 2nd SCLK of frame N+1, the input is
+  // acquired through frame N+1 and sampled on the CS falling edge that
+  // opens frame N+2 — so the conversion for this channel is clocked out in
+  // frame N+2, not N+1. Frame N+1 still carries the channel selected two
+  // frames ago. Rather than count frames, clock CONTINUE until the 4-bit
+  // channel address in DO15:12 is the one requested (the Airseal/Moonshine
+  // port's ProcessFrame contract); anything else is attributed to the wrong
+  // tap.
   uint16_t cmd = reg::Mode::MANUAL | reg::PROGRAM_RETAIN
                | reg::ChannelSelect(channel) | ctrl;
   spiTransfer16(cmd);
-
-  // Frame 2: CONTINUE — response now holds channel N conversion data.
-  uint16_t resp = spiTransfer16(reg::Mode::CONTINUE | ctrl);
-
-  result.channel = reg::Response::GetChannel(resp);
-  result.count   = reg::Response::GetData(resp);
-  result.voltage = CountToVoltage(result.count);
-  result.error   = Error::Ok;
-
   mode_ = Mode::Manual;
+
+  const uint16_t cont = reg::Mode::CONTINUE | ctrl;
+  for (uint8_t i = 0; i < ADS7952_CFG::MANUAL_READ_MAX_FRAMES; ++i) {
+    const uint16_t resp = spiTransfer16(cont);
+    const uint8_t  ch   = reg::Response::GetChannel(resp);
+    if (ch == channel) {
+      result.channel = ch;
+      result.count   = reg::Response::GetData(resp);
+      result.voltage = CountToVoltage(result.count);
+      result.error   = Error::Ok;
+      return result;
+    }
+  }
+
+  result.channel = channel;
+  result.error   = Error::Timeout;
   return result;
 }
 
@@ -149,9 +178,14 @@ ChannelReadings ADS7952<SpiType>::ReadAllChannels() noexcept {
     return result;
   }
 
-  // Enter Auto-1 with channel counter reset.
-  // Response from this frame is stale — discard.
-  uint16_t cmd = reg::Mode::AUTO_1 | reg::PROGRAM_RETAIN
+  // Enter Auto-1 with the channel counter reset. Table 2: in Auto-1 the
+  // DI11 programming bit gates DI10..DI00 as a block, so RESET_COUNTER
+  // (DI10) is ignored unless DI11 = PROGRAM_ENABLE — the earlier
+  // PROGRAM_RETAIN | RESET_COUNTER frame never reset the sequence. The
+  // range / power / GPIO bits in `ctrl` are what the device already runs
+  // with, so re-programming them here is a no-op. Response from this frame
+  // is stale — discard.
+  uint16_t cmd = reg::Mode::AUTO_1 | reg::PROGRAM_ENABLE
                | reg::RESET_COUNTER | ctrl;
   spiTransfer16(cmd);
   mode_ = Mode::Auto1;
@@ -417,6 +451,29 @@ void ADS7952<SpiType>::SetGPIOOutputs(uint8_t gpio_state) noexcept {
   // The GPIO output bits [3:0] are sent with every mode control frame.
   // Send a continue frame to latch the new output levels.
   spiTransfer16(reg::Mode::CONTINUE | commonControlBits());
+}
+
+// =============================================================================
+// Raw frame trace
+// =============================================================================
+
+template <typename SpiType>
+/** @copydoc ADS7952::RawManualFrames(uint8_t, uint16_t*, uint8_t) */
+uint8_t ADS7952<SpiType>::RawManualFrames(uint8_t channel, uint16_t* out,
+                                          uint8_t n) noexcept {
+  if (!initialized_ || out == nullptr || n == 0 ||
+      channel >= reg::NUM_CHANNELS) {
+    return 0;
+  }
+  const uint16_t ctrl = commonControlBits();
+  out[0] = spiTransfer16(reg::Mode::MANUAL | reg::PROGRAM_RETAIN
+                         | reg::ChannelSelect(channel) | ctrl);
+  const uint16_t cont = reg::Mode::CONTINUE | ctrl;
+  for (uint8_t i = 1; i < n; ++i) {
+    out[i] = spiTransfer16(cont);
+  }
+  mode_ = Mode::Manual;
+  return n;
 }
 
 // =============================================================================

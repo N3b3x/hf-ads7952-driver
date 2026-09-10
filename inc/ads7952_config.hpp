@@ -87,6 +87,16 @@ inline constexpr uint8_t READ_ALL_MAX_EXTRA_FRAMES = CONFIG_ADS7952_READ_ALL_MAX
 inline constexpr uint8_t READ_ALL_MAX_EXTRA_FRAMES = 4;
 #endif
 
+// ---- Manual-mode read: CONTINUE frames allowed before the requested channel
+//      address appears in DO15:12. SLAS605C Figure 51: select in frame N,
+//      data in frame N+2, so the minimum is 2; one spare for a mode change
+//      that was still in flight.
+#ifdef CONFIG_ADS7952_MANUAL_READ_MAX_FRAMES
+inline constexpr uint8_t MANUAL_READ_MAX_FRAMES = CONFIG_ADS7952_MANUAL_READ_MAX_FRAMES;
+#else
+inline constexpr uint8_t MANUAL_READ_MAX_FRAMES = 4;
+#endif
+
 // ---- Max retries for mode change / programming operations ------------------
 #ifdef CONFIG_ADS7952_MAX_RETRIES
 inline constexpr uint8_t MAX_RETRIES = CONFIG_ADS7952_MAX_RETRIES;
