@@ -451,16 +451,56 @@
 </h3>
     
 
-<p>This is normal. The ADS7952 uses a <strong>pipelined</strong> SPI protocol: the response to frame N contains the conversion result triggered by frame N-1.</p>
+<p>This is normal. The ADS7952 uses a <strong>pipelined</strong> SPI protocol: a channel
+selected in frame N is sampled on the CS edge that opens frame N+2, so its
+conversion result is returned in frame <strong>N+2</strong> (SLAS605C Figure 51). Frame
+N+1 still returns the channel selected two frames earlier.</p>
 
-<p>The driver handles this internally with a two-frame sequence:</p>
+<p>The driver keys every result on the DO15:12 channel address and clocks
+CONTINUE frames until the requested address appears (bounded by
+<code class="language-plaintext highlighter-rouge">ADS7952_CFG::MANUAL_READ_MAX_FRAMES</code>).</p>
 
-<ol>
-  <li><strong>Frame 1:</strong> Sends command for channel X → receives stale/previous data (discarded)</li>
-  <li><strong>Frame 2:</strong> Sends NOP → receives the actual channel X result</li>
-</ol>
+<p>If you are using raw SPI (bypassing the driver), you must handle this pipeline yourself.</p>
+<h3 id="every-channel-returns-the-same-count">
+  
+  
+    <a href="#every-channel-returns-the-same-count" class="anchor-heading" aria-labelledby="every-channel-returns-the-same-count"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Every channel returns the same count
+  
+  
+</h3>
+    
 
-<p>If you are using raw SPI (bypassing the driver), you must handle this pipeline yourself.</p><hr />
+<p>Look at the raw words before touching spans or clocks. Two very different
+faults print the same converted bank:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th>DO15:12 (address)</th>
+      <th>DO11:0 (data)</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>advances 0..11</td>
+      <td>identical</td>
+      <td>Digital side fine; sample-and-hold never charged to the new channel. Acquisition runs from the 14th SCLK rising edge to the next CS falling edge, so lower SCLK / widen the CS gap / check source impedance.</td>
+    </tr>
+    <tr>
+      <td><strong>stuck</strong> (never equals the selected channel)</td>
+      <td>identical</td>
+      <td>The device is not receiving SDI (or is unpowered). A manual select of CH11 must come back with address 11 by frame N+2. If it never does, MISO is returning a pattern that is not this device’s — check the SDI wire, the board rails, then MISO.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>The old two-frame <code class="language-plaintext highlighter-rouge">ReadChannel</code> did not check the address and would report
+the stuck word as every channel; the driver now keys on the address and
+returns <code class="language-plaintext highlighter-rouge">Error::Timeout</code> instead. Seen 2026-09-09 on a Portenta Mid +
+Moonshine sensor board: every frame <code class="language-plaintext highlighter-rouge">0x0E83</code> with address 0 regardless of the
+channel selected, and the AT25040 on the same SDI returned a different
+“identity” on every read — a dead SDI/harness, not a driver or SCLK-rate fault.</p><hr />
 <h3 id="readallchannels-missing-channels">
   
   

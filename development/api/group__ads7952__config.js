@@ -6,6 +6,7 @@ var group__ads7952__config =
     [ "ADS7952_CFG::DEFAULT_RANGE", "group__ads7952__config.html#ga4db1f25dc20244c2eec425d9fcd62420", null ],
     [ "ADS7952_CFG::DEFAULT_VA", "group__ads7952__config.html#ga47ee68e092b956292c331d77c4f30994", null ],
     [ "ADS7952_CFG::DEFAULT_VREF", "group__ads7952__config.html#gab1126e4816450bd31e3ebcae5c1d4db2", null ],
+    [ "ADS7952_CFG::MANUAL_READ_MAX_FRAMES", "group__ads7952__config.html#gad6ca67d0a45292ddcc80f421ac755c33", null ],
     [ "ADS7952_CFG::MAX_COUNT", "group__ads7952__config.html#gab1969f7fd3aa2843d081d0ae9dce91a4", null ],
     [ "ADS7952_CFG::MAX_RETRIES", "group__ads7952__config.html#ga8d25cb204be04f943ba3ad31eefe17eb", null ],
     [ "ADS7952_CFG::MAX_VA", "group__ads7952__config.html#gafac5cc55d1febc55e86fe80fa372ebe8", null ],

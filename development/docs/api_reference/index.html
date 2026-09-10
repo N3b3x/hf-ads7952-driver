@@ -429,12 +429,18 @@
 </pre></td><td class="rouge-code"><pre><span class="n">ReadResult</span> <span class="n">ReadChannel</span><span class="p">(</span><span class="kt">uint8_t</span> <span class="n">channel</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
 </pre></td></tr></tbody></table></div></code></pre></div></div>
 
-<p>Read a single ADC channel. Internally switches to Manual mode and executes a 2-frame SPI pipeline:</p>
+<p>Read a single ADC channel. Internally switches to Manual mode and clocks the
+SLAS605C Figure 51 pipeline until the response carries the requested channel:</p>
 
 <ol>
-  <li><strong>Frame 1:</strong> MANUAL mode + channel select → triggers conversion (response discarded)</li>
-  <li><strong>Frame 2:</strong> CONTINUE → response contains the target channel’s data</li>
+  <li><strong>Frame N:</strong> MANUAL mode + channel select → response is stale (discarded)</li>
+  <li><strong>Frame N+1:</strong> CONTINUE → still the channel selected two frames earlier (discarded)</li>
+  <li><strong>Frame N+2:</strong> CONTINUE → DO15:12 equals the requested channel → result</li>
 </ol>
+
+<p>The driver keys on the 4-bit channel address in DO15:12, not on frame
+position; it gives up with <code class="language-plaintext highlighter-rouge">Error::Timeout</code> after
+<code class="language-plaintext highlighter-rouge">ADS7952_CFG::MANUAL_READ_MAX_FRAMES</code> CONTINUE frames.</p>
 
 <div class="table-wrapper"><table>
   <thead>

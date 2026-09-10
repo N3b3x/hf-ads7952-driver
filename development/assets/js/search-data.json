@@ -155,7 +155,7 @@
   },"22": {
     "doc": "📖 API Reference",
     "title": "Channel Reading",
-    "content": "ReadChannel() . | 1 . | ReadResult ReadChannel(uint8_t channel) noexcept; . | . Read a single ADC channel. Internally switches to Manual mode and executes a 2-frame SPI pipeline: . | Frame 1: MANUAL mode + channel select → triggers conversion (response discarded) | Frame 2: CONTINUE → response contains the target channel’s data | . | Parameter | Type | Range | Description | . | channel | uint8_t | 0–11 | Channel number to read | . Returns: ReadResult (see Structures). Errors: . | Error::NotInitialized — EnsureInitialized() not yet called | Error::InvalidChannel — channel ≥ 12 | . ReadAllChannels() . | 1 . | ChannelReadings ReadAllChannels() noexcept; . | . Read all channels in the current Auto-1 sequence. Enters Auto-1 mode with counter reset and reads until all programmed channels are received or timeout. The number of SPI frames is popcount(auto1_mask) + READ_ALL_MAX_EXTRA_FRAMES. Returns: ChannelReadings (see Structures). Errors: . | Error::NotInitialized — EnsureInitialized() not yet called | Error::Timeout — not all channels received within frame budget | . ",
+    "content": "ReadChannel() . | 1 . | ReadResult ReadChannel(uint8_t channel) noexcept; . | . Read a single ADC channel. Internally switches to Manual mode and clocks the SLAS605C Figure 51 pipeline until the response carries the requested channel: . | Frame N: MANUAL mode + channel select → response is stale (discarded) | Frame N+1: CONTINUE → still the channel selected two frames earlier (discarded) | Frame N+2: CONTINUE → DO15:12 equals the requested channel → result | . The driver keys on the 4-bit channel address in DO15:12, not on frame position; it gives up with Error::Timeout after ADS7952_CFG::MANUAL_READ_MAX_FRAMES CONTINUE frames. | Parameter | Type | Range | Description | . | channel | uint8_t | 0–11 | Channel number to read | . Returns: ReadResult (see Structures). Errors: . | Error::NotInitialized — EnsureInitialized() not yet called | Error::InvalidChannel — channel ≥ 12 | . ReadAllChannels() . | 1 . | ChannelReadings ReadAllChannels() noexcept; . | . Read all channels in the current Auto-1 sequence. Enters Auto-1 mode with counter reset and reads until all programmed channels are received or timeout. The number of SPI frames is popcount(auto1_mask) + READ_ALL_MAX_EXTRA_FRAMES. Returns: ChannelReadings (see Structures). Errors: . | Error::NotInitialized — EnsureInitialized() not yet called | Error::Timeout — not all channels received within frame budget | . ",
     "url": "/hf-ads7952/development/docs/api_reference/#channel-reading",
     
     "relUrl": "/docs/api_reference/#channel-reading"
@@ -1114,130 +1114,137 @@
   },"159": {
     "doc": "🐛 Troubleshooting",
     "title": "Channel address in response doesn’t match request",
-    "content": "This is normal. The ADS7952 uses a pipelined SPI protocol: the response to frame N contains the conversion result triggered by frame N-1. The driver handles this internally with a two-frame sequence: . | Frame 1: Sends command for channel X → receives stale/previous data (discarded) | Frame 2: Sends NOP → receives the actual channel X result | . If you are using raw SPI (bypassing the driver), you must handle this pipeline yourself. ",
+    "content": "This is normal. The ADS7952 uses a pipelined SPI protocol: a channel selected in frame N is sampled on the CS edge that opens frame N+2, so its conversion result is returned in frame N+2 (SLAS605C Figure 51). Frame N+1 still returns the channel selected two frames earlier. The driver keys every result on the DO15:12 channel address and clocks CONTINUE frames until the requested address appears (bounded by ADS7952_CFG::MANUAL_READ_MAX_FRAMES). If you are using raw SPI (bypassing the driver), you must handle this pipeline yourself. ",
     "url": "/hf-ads7952/development/docs/troubleshooting/#channel-address-in-response-doesnt-match-request",
     
     "relUrl": "/docs/troubleshooting/#channel-address-in-response-doesnt-match-request"
   },"160": {
+    "doc": "🐛 Troubleshooting",
+    "title": "Every channel returns the same count",
+    "content": "Look at the raw words before touching spans or clocks. Two very different faults print the same converted bank: . | DO15:12 (address) | DO11:0 (data) | Meaning | . | advances 0..11 | identical | Digital side fine; sample-and-hold never charged to the new channel. Acquisition runs from the 14th SCLK rising edge to the next CS falling edge, so lower SCLK / widen the CS gap / check source impedance. | . | stuck (never equals the selected channel) | identical | The device is not receiving SDI (or is unpowered). A manual select of CH11 must come back with address 11 by frame N+2. If it never does, MISO is returning a pattern that is not this device’s — check the SDI wire, the board rails, then MISO. | . The old two-frame ReadChannel did not check the address and would report the stuck word as every channel; the driver now keys on the address and returns Error::Timeout instead. Seen 2026-09-09 on a Portenta Mid + Moonshine sensor board: every frame 0x0E83 with address 0 regardless of the channel selected, and the AT25040 on the same SDI returned a different “identity” on every read — a dead SDI/harness, not a driver or SCLK-rate fault. ",
+    "url": "/hf-ads7952/development/docs/troubleshooting/#every-channel-returns-the-same-count",
+    
+    "relUrl": "/docs/troubleshooting/#every-channel-returns-the-same-count"
+  },"161": {
     "doc": "🐛 Troubleshooting",
     "title": "ReadAllChannels() missing channels",
     "content": "If ChannelReadings.hasChannel(ch) returns false for channels you expect: . | Check the Auto-1 mask: Only channels in the programmed mask are sequenced. Call ProgramAuto1Channels(0x0FFF) for all 12 channels. | Check validMask: ChannelReadings.validMask is a bitmask of channels that were actually read. The number of SPI transfers equals popcount(auto1_mask) + 1. | Ensure you called EnterAuto1Mode(true): The true argument resets the sequence pointer to the first channel. | . ",
     "url": "/hf-ads7952/development/docs/troubleshooting/#readallchannels-missing-channels",
     
     "relUrl": "/docs/troubleshooting/#readallchannels-missing-channels"
-  },"161": {
+  },"162": {
     "doc": "🐛 Troubleshooting",
     "title": "Build Issues",
     "content": " ",
     "url": "/hf-ads7952/development/docs/troubleshooting/#build-issues",
     
     "relUrl": "/docs/troubleshooting/#build-issues"
-  },"162": {
+  },"163": {
     "doc": "🐛 Troubleshooting",
     "title": "CMake: Target hf::ads7952 not found",
     "content": "| 1 . | CMake Error: ... does not define target \"hf::ads7952\" . | . Solution: Ensure you have added the library before linking: . | 1 2 . | add_subdirectory(path/to/hf-ads7952-driver) target_link_libraries(your_target PRIVATE hf::ads7952) . | . ",
     "url": "/hf-ads7952/development/docs/troubleshooting/#cmake-target-hfads7952-not-found",
     
     "relUrl": "/docs/troubleshooting/#cmake-target-hfads7952-not-found"
-  },"163": {
+  },"164": {
     "doc": "🐛 Troubleshooting",
     "title": "Compiler error: C++20 required",
     "content": "| 1 . | error: 'cxx_std_20' is not a valid compile feature . | . Solution: Update your compiler to one that supports C++20: . | GCC 10+ (ESP-IDF v5.x uses GCC 13) | Clang 10+ | MSVC 19.29+ | . ",
     "url": "/hf-ads7952/development/docs/troubleshooting/#compiler-error-c20-required",
     
     "relUrl": "/docs/troubleshooting/#compiler-error-c20-required"
-  },"164": {
+  },"165": {
     "doc": "🐛 Troubleshooting",
     "title": "ESP-IDF: Component not found",
     "content": "| 1 . | CMake Error: ... could not find component hf_ads7952 . | . Solution: Ensure the component wrapper exists: . | 1 2 3 4 5 . | your_project/ └── components/ └── hf_ads7952/ ├── CMakeLists.txt └── idf_component.yml . | . The CMakeLists.txt must include the build settings file: . | 1 2 3 4 5 6 7 . | include(${COMPONENT_DIR}/../../cmake/hf_ads7952_build_settings.cmake) idf_component_register( SRCS ${HF_ADS7952_SOURCE_FILES} INCLUDE_DIRS ${HF_ADS7952_PUBLIC_INCLUDE_DIRS} REQUIRES ${HF_ADS7952_IDF_REQUIRES} ) . | . ",
     "url": "/hf-ads7952/development/docs/troubleshooting/#esp-idf-component-not-found",
     
     "relUrl": "/docs/troubleshooting/#esp-idf-component-not-found"
-  },"165": {
+  },"166": {
     "doc": "🐛 Troubleshooting",
     "title": "Windows: MAX_PATH build failure",
     "content": "| 1 . | fatal error: ... file name too long . | . If your workspace path is deeply nested (e.g., inside OneDrive), the full build path can exceed Windows’ 260-character limit. Solutions: . | Clone the repository to a shorter base path (e.g., C:\\dev\\) | Enable Windows long path support: reg add HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem /v LongPathsEnabled /t REG_DWORD /d 1 | Use subst to map a deep path to a drive letter | . ",
     "url": "/hf-ads7952/development/docs/troubleshooting/#windows-max_path-build-failure",
     
     "relUrl": "/docs/troubleshooting/#windows-max_path-build-failure"
-  },"166": {
+  },"167": {
     "doc": "🐛 Troubleshooting",
     "title": "Runtime Issues",
     "content": " ",
     "url": "/hf-ads7952/development/docs/troubleshooting/#runtime-issues",
     
     "relUrl": "/docs/troubleshooting/#runtime-issues"
-  },"167": {
+  },"168": {
     "doc": "🐛 Troubleshooting",
     "title": "EnsureInitialized() returns false",
     "content": "Possible causes: . | SPI transfer() method returns non-zero (error) | SPI bus not configured before driver initialization | . Debugging: . | Add logging inside your transfer() implementation to see the return code | Verify the SPI bus is fully initialized (clock, pins, device handle) before calling EnsureInitialized() | Check that CS is properly toggled per transfer | . ",
     "url": "/hf-ads7952/development/docs/troubleshooting/#ensureinitialized-returns-false",
     
     "relUrl": "/docs/troubleshooting/#ensureinitialized-returns-false"
-  },"168": {
+  },"169": {
     "doc": "🐛 Troubleshooting",
     "title": "Wrong channel data in Manual mode",
     "content": "The driver’s ReadChannel() handles the two-frame pipeline automatically. If you still see incorrect data: . | Verify you are reading result.count and result.voltage, not the raw SPI return | Check result.channel — it should match the requested channel | Ensure no other code is sending SPI traffic to the ADS7952 between driver calls | . ",
     "url": "/hf-ads7952/development/docs/troubleshooting/#wrong-channel-data-in-manual-mode",
     
     "relUrl": "/docs/troubleshooting/#wrong-channel-data-in-manual-mode"
-  },"169": {
+  },"170": {
     "doc": "🐛 Troubleshooting",
     "title": "Alarm thresholds not triggering",
     "content": "ProgramAlarm() is a 3-frame SPI sequence. If any frame fails, the threshold is not written. Debugging: . | Check the return value: auto err = adc.ProgramAlarm(ch, bound, threshold); if (err != Error::None) ... | Verify the threshold value is a 12-bit count (0–4095), not a voltage | Convert voltage to counts: threshold = (voltage / vref) * 4095 | GPIO0/GPIO1 must be configured for alarm output mode via ProgramGPIO() to see alarm signals on pins | . ",
     "url": "/hf-ads7952/development/docs/troubleshooting/#alarm-thresholds-not-triggering",
     
     "relUrl": "/docs/troubleshooting/#alarm-thresholds-not-triggering"
-  },"170": {
+  },"171": {
     "doc": "🐛 Troubleshooting",
     "title": "GPIO pins not responding",
     "content": ". | Confirm GPIO direction: set bit in GPIOConfig.direction_mask (1 = output) for each pin | GPIO0 and GPIO1 can be alarm outputs — check GPIOConfig.alarm_mode | Call ProgramGPIO() before SetGPIOOutputs() | GPIO3 doubles as the power-down input when configured — check GPIOConfig.gpio3_is_powerdown | . ",
     "url": "/hf-ads7952/development/docs/troubleshooting/#gpio-pins-not-responding",
     
     "relUrl": "/docs/troubleshooting/#gpio-pins-not-responding"
-  },"171": {
+  },"172": {
     "doc": "🐛 Troubleshooting",
     "title": "Debugging Techniques",
     "content": " ",
     "url": "/hf-ads7952/development/docs/troubleshooting/#debugging-techniques",
     
     "relUrl": "/docs/troubleshooting/#debugging-techniques"
-  },"172": {
+  },"173": {
     "doc": "🐛 Troubleshooting",
     "title": "Logic Analyzer Checklist",
     "content": "| Signal | What to Check | . | CS | Goes low for exactly 16 SCLK cycles per transfer | . | SCLK | Mode 0 — idle low, data sampled on rising edge | . | MOSI | DI[15:12] shows mode bits, DI[11] shows PROGRAM | . | MISO | DO[15:12] shows channel address, DO[11:0] shows 12-bit data | . ",
     "url": "/hf-ads7952/development/docs/troubleshooting/#logic-analyzer-checklist",
     
     "relUrl": "/docs/troubleshooting/#logic-analyzer-checklist"
-  },"173": {
+  },"174": {
     "doc": "🐛 Troubleshooting",
     "title": "Voltage Conversion Sanity Check",
     "content": "| 1 2 3 4 5 6 . | // Static conversion (no driver instance needed) float v = ads7952::ADS7952&lt;MySpi&gt;::CountToVoltage(2048, 2.5f, ads7952::Range::Vref); // Should be ~1.25 V (midscale) float v2 = ads7952::ADS7952&lt;MySpi&gt;::CountToVoltage(2048, 2.5f, ads7952::Range::TwoVref); // Should be ~2.50 V (midscale of 0–5 V range) . | . ",
     "url": "/hf-ads7952/development/docs/troubleshooting/#voltage-conversion-sanity-check",
     
     "relUrl": "/docs/troubleshooting/#voltage-conversion-sanity-check"
-  },"174": {
+  },"175": {
     "doc": "🐛 Troubleshooting",
     "title": "ESP-IDF SPI Debugging",
     "content": "Enable SPI driver logging: . | 1 2 . | idf.py menuconfig # → Component config → Log output → Default log verbosity: Debug . | . Or set per-tag in code: . | 1 . | esp_log_level_set(\"spi_master\", ESP_LOG_DEBUG); . | . ",
     "url": "/hf-ads7952/development/docs/troubleshooting/#esp-idf-spi-debugging",
     
     "relUrl": "/docs/troubleshooting/#esp-idf-spi-debugging"
-  },"175": {
+  },"176": {
     "doc": "🐛 Troubleshooting",
     "title": "Getting Help",
     "content": "If your issue is not listed here: . | Check the ADS7952 datasheet (SLAS605C) for device-specific behavior | Use a logic analyzer to capture and decode SPI traffic | Run the Integration Test Suite to validate hardware | Open an issue on the GitHub repository | . Navigation ⬅️ Examples ⬅️ Documentation Home . ",
     "url": "/hf-ads7952/development/docs/troubleshooting/#getting-help",
     
     "relUrl": "/docs/troubleshooting/#getting-help"
-  },"176": {
+  },"177": {
     "doc": "Datasheet",
     "title": "Datasheet",
     "content": "# Datasheet Place the ADS7952 datasheet PDF in this directory for reference. - [ADS7952 Product Page](https://www.ti.com/product/ADS7952) ",
     "url": "/hf-ads7952/development/docs/datasheet/",
     
     "relUrl": "/docs/datasheet/"
-  },"177": {
+  },"178": {
     "doc": "ESP32 ADS7952 Driver Examples",
     "title": "ESP32 ADS7952 Driver Examples",
     "content": "# ESP32 ADS7952 Driver Examples ESP-IDF example applications for the ADS7952 12-channel, 12-bit SAR ADC driver targeting the **ESP32-S3**. ## Examples | App Type | Source File | Category | Description | --- | --- | --- | --- | `basic_adc_reading` | `basic_adc_reading_example.cpp` | example | Initialize, manual single-channel reads, Auto-1 batch reads | `multi_mode` | `multi_mode_example.cpp` | example | Manual, Auto-1, Auto-2 modes, channel masks, range comparison | `alarm_gpio` | `alarm_gpio_example.cpp` | example | GPIO outputs, alarm thresholds, alarm-as-output routing | `driver_integration_test` | `driver_integration_test.cpp` | test | 30+ test cases across 9 sections | ## Building ### Using Build Scripts ```bash cd examples/esp32 # List available apps ./scripts/build_app.sh list # Build a specific app ./scripts/build_app.sh basic_adc_reading Debug # Flash and monitor ./scripts/flash_app.sh basic_adc_reading Debug ``` ### Using idf.py Directly ```bash cd examples/esp32 idf.py set-target esp32s3 idf.py -B build \\ \"-DAPP_TYPE=basic_adc_reading\" \\ \"-DBUILD_TYPE=Debug\" \\ \"-DAPP_SOURCE_FILE=basic_adc_reading_example.cpp\" \\ build idf.py -B build flash monitor ``` ## Hardware Configuration Edit `main/esp32_ads7952_test_config.hpp` to match your hardware: | Setting | Default | Description |---------|---------|-------------| `PIN_NUM_MISO` | 13 | SPI MISO (SDO from ADS7952) | `PIN_NUM_MOSI` | 11 | SPI MOSI (SDI to ADS7952) | `PIN_NUM_CLK` | 12 | SPI SCLK | `PIN_NUM_CS` | 10 | SPI CS (directly controlled) | `SPI_FREQ_HZ` | 1 MHz | SPI clock frequency (max 20 MHz) | `VREF` | 2.5 V | External reference voltage | `VA` | 5.0 V | Analog supply voltage | ## Directory Structure ``` examples/esp32/ ├── CMakeLists.txt # Root project CMake ├── app_config.yml # App definitions for build scripts ├── sdkconfig # ESP-IDF project config ├── README.md # This file ├── components/ │ └── hf_ads7952/ │ ├── CMakeLists.txt # ESP-IDF component wrapper │ └── idf_component.yml # Component manifest ├── main/ │ ├── CMakeLists.txt # Main component CMake │ ├── TestFramework.h # Lightweight test framework │ ├── esp32_ads7952_bus.hpp # ESP32 SPI CRTP implementation │ ├── esp32_ads7952_test_config.hpp # Hardware pin configuration │ ├── basic_adc_reading_example.cpp # Basic example │ ├── multi_mode_example.cpp # Multi-mode example │ ├── alarm_gpio_example.cpp # Alarm & GPIO example │ └── driver_integration_test.cpp # Integration tests └── scripts/ # Build scripts (git submodule) ``` ## SPI Implementation The ESP32 SPI interface is implemented in `esp32_ads7952_bus.hpp` using the CRTP pattern: ```cpp class Esp32Ads7952SpiBus : public ads7952::SpiInterface { int transfer_impl(const uint8_t* tx, uint8_t* rx, size_t len); }; ``` Each `transfer()` call performs one 16-bit full-duplex SPI transaction with CS framing. ",

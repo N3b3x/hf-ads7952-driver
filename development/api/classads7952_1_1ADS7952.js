@@ -25,6 +25,7 @@ var classads7952_1_1ADS7952 =
     [ "ProgramAuto1Channels", "group__ads7952__core.html#gae696aa4464bed585679f598c2f37855b", null ],
     [ "ProgramAuto2LastChannel", "group__ads7952__core.html#ga455f61aa0f8d5e8160d5338b2217ae1c", null ],
     [ "ProgramGPIO", "group__ads7952__core.html#ga654e0026fa6a4cc485a10ab19ffb26c7", null ],
+    [ "RawManualFrames", "group__ads7952__core.html#ga48db1eefb8b26fbcbacdb29fe281866d", null ],
     [ "ReadAllChannels", "group__ads7952__core.html#ga201d4df85a2fb43a7664664f94ab5c3f", null ],
     [ "ReadChannel", "group__ads7952__core.html#gab4ff59a78bd894e98661d866b118f0c8", null ],
     [ "SetGPIOOutputs", "group__ads7952__core.html#ga572cfee9315e5ff2f43e69f63fef46c4", null ],

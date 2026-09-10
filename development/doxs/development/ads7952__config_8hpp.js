@@ -6,6 +6,7 @@ var ads7952__config_8hpp =
     [ "DEFAULT_RANGE", "ads7952__config_8hpp.html#ga4db1f25dc20244c2eec425d9fcd62420", null ],
     [ "DEFAULT_VA", "ads7952__config_8hpp.html#ga47ee68e092b956292c331d77c4f30994", null ],
     [ "DEFAULT_VREF", "ads7952__config_8hpp.html#gab1126e4816450bd31e3ebcae5c1d4db2", null ],
+    [ "MANUAL_READ_MAX_FRAMES", "ads7952__config_8hpp.html#gad6ca67d0a45292ddcc80f421ac755c33", null ],
     [ "MAX_COUNT", "ads7952__config_8hpp.html#gab1969f7fd3aa2843d081d0ae9dce91a4", null ],
     [ "MAX_RETRIES", "ads7952__config_8hpp.html#ga8d25cb204be04f943ba3ad31eefe17eb", null ],
     [ "MAX_VA", "ads7952__config_8hpp.html#gafac5cc55d1febc55e86fe80fa372ebe8", null ],
