@@ -1,4 +1,4 @@
-warning: Tag 'CLASS_DIAGRAMS' at line 286 of file '/tmp/doxyfile.EGdv9S' has become obsolete.
+warning: Tag 'CLASS_DIAGRAMS' at line 286 of file '/tmp/doxyfile.I9Sqhg' has become obsolete.
          To avoid this warning please remove this line from your configuration file or upgrade it using "doxygen -u"
 /home/runner/work/hf-ads7952-driver/hf-ads7952-driver/src/ads7952.ipp:524: warning: unbalanced grouping commands
 error: Style sheet '_config/doxygen-extensions/doxygen-awesome-css/doxygen-awesome.css' specified by HTML_EXTRA_STYLESHEET does not exist!
